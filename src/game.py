@@ -47,8 +47,6 @@ class Menu:
                 new_game.create_char(user_input)
             new_game.save_file.close()
 
-
-
     def load_game(self):
         print("Loading your progress")
 
@@ -58,16 +56,9 @@ class Menu:
 
 welcome()
 game_menu = Menu(input())
-# _char_att_list = ["-Name => ", "Species=> ", "Gender=> ", "Favourite Snack=> ",
-#                      "A tool/weapon for the journey=> ", "A traversal object=> "]
 
 if game_menu.user_input == "1":
     game_menu.new_game()
-    # container = []
-    # for att in _char_att_list:
-    #     user_input = input(att)
-    #     container.append(user_input)
-    # print(container)
 elif game_menu.user_input == "2":
     game_menu.load_game()
 elif game_menu.user_input == "3":
