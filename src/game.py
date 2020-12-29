@@ -1,5 +1,6 @@
 import sys
 
+char_att_dict = {}
 
 def welcome():
     print(Menu.message + "\n" + Menu.options, end="=> ")
@@ -7,7 +8,7 @@ def welcome():
 
 class NewGame:
     char_att_list = ["1- Name => ", "2- Species => ", "3- Gender => ", "4- Favourite Snack => ",
-                     "5- A tool/weapon for the journey => ", "6- A traversal object => "]
+                     "5- A weapon for the journey => ", "6- A traversal tool => "]
 
     save_file = None
 
@@ -15,10 +16,10 @@ class NewGame:
         self.user_input = user_input
 
     def create_new_save(self):
-        NewGame.save_file = open(f"./gameSaves/{self.user_input}.txt", "w", encoding="utf-8")
+        self.save_file = open(f"./gameSaves/{self.user_input}.txt", "w", encoding="utf-8")
 
     def create_char(self, user_inputs):
-        NewGame.save_file.write(user_inputs + "\n")
+        self.save_file.write(user_inputs + "\n")
 
 
 class Menu:
@@ -42,10 +43,13 @@ class Menu:
             self.quit()
         else:
             new_game.create_new_save()
-            for att in new_game.char_att_list:
-                user_input = input(att)
-                new_game.create_char(user_input)
+            dict_keys = ["name", "species", "gender", "snack", "weapon", "tool"]
+            for i in range(len(new_game.char_att_list)):
+                user_input = input(new_game.char_att_list[i])
+                new_game.create_char(user_input)  # save the inputs to a file
+                char_att_dict[dict_keys[i]] = user_input  # save the inputs to a dict
             new_game.save_file.close()
+            print(char_att_dict)
 
     def load_game(self):
         print("Loading your progress")
