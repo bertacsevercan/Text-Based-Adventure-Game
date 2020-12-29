@@ -10,8 +10,12 @@ def warning_unknown_input():  # s1
 
 
 class Game:  # s2
-    char_att_dict = {}  # s2
-    inventory_dict = {}  # s2
+    """
+    Gonna save this game_state to the file and then read it in load game. As long as the attributes are uptated
+    it's ok
+    """
+    char_att_dict = {}
+    inventory_dict = {}
     difficulty = "Medium"
     lives = 3
     level = 1
@@ -84,6 +88,25 @@ class GameFunctions(Game):  # s2
     def show_inventory(self):
         inventory = list(self.inventory_dict.values())
         print(f"Inventory: {inventory}")
+
+    def gameplay(self, story, choice1, choice2, choice3, outcome1, outcome2, outcome3):
+        """Trying to make this reusable as possible!!!"""
+        input_message = f"""{story}
+1- {choice1}
+2- {choice2}
+3- {choice3}
+What will you do?
+=> 
+"""
+        action_input = input(input_message)
+        if action_input == "1":
+            print(outcome1)
+        elif action_input == "2":
+            print(outcome2)
+        elif action_input == "3":
+            print(outcome3)
+        else:
+            warning_unknown_input()
 
 
 class Menu:  # s1, in the s1 ,the functions should be passed, they are implemeted in s2
