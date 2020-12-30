@@ -1,6 +1,19 @@
 from sys import exit  # s1
 
 
+story_container = ""
+with open("./story/story.txt") as story_f:
+    for line in story_f:
+        story_container += line
+story_list = story_container.split("+")
+
+choices = []
+with open("./story/choices.txt") as choices_f:
+    for line in choices_f:
+        choices.append(line.strip())
+
+
+
 def welcome():  # s1
     title = "Journey to Mount Qaf"
     print(f"***Welcome to the {title}***")
@@ -31,7 +44,7 @@ class NewGame(Game):  # s2
         self.username_input = username_input
 
     def create_new_save(self):
-        self.save_file = open(f"./gameSaves/{self.username_input}.txt", "w", encoding="utf-8")
+        self.save_file = open(f"./gameSaves/{self.username_input}.txt", "w")
 
     def create_char(self, user_inputs):
         self.save_file.write(user_inputs + "\n")
@@ -41,14 +54,14 @@ class NewGame(Game):  # s2
         print("Create your character:")
         char_dict_keys = ["name", "species", "gender"]
         for i in range(len(self.char_att_list)):
-            user_input = input(self.char_att_list[i])
+            user_input = input(self.char_att_list[i]).title()
             self.create_char(user_input)  # save the inputs to a file
             self.char_att_dict[char_dict_keys[i]] = user_input  # save the inputs to a dict
 
         print("Pack your bag for the journey:")
         inventory_dict_keys = ["snack", "weapon", "tool"]
         for j in range(len(self.inventory_list)):
-            user_input = input(self.inventory_list[j])
+            user_input = input(self.inventory_list[j]).title()
             self.create_char(user_input)
             self.inventory_dict[inventory_dict_keys[j]] = user_input
 
@@ -76,32 +89,38 @@ class NewGame(Game):  # s2
         self.create_char(self.difficulty)
         self.create_char(str(self.lives))
         self.save_file.close()
-        print("Good luck on your journey " + self.char_att_dict["name"])
+        print("Good luck on your journey " + self.char_att_dict["name"] + "!\n")
 
 
-class GameFunctions(Game):  # s2
+class Helper(Game):  # s2
+    @staticmethod
+    def increase_lives():
+        Game.lives += 1
+        print("You gained an extra life:",  Game.lives)
 
-    def increase_lives(self):
-        self.lives += 1
+    @staticmethod
+    def decrease_lives():
+        Game.lives -= 1
+        print("You died:", Game.lives)
 
-    def decrease_lives(self):
-        self.lives -= 1
-
-    def show_inventory(self):
-        inventory = ", ".join(list(self.inventory_dict.values()))
+    @staticmethod
+    def show_inventory():
+        inventory = ", ".join(list(Game.inventory_dict.values()))
         print(f"Inventory: {inventory}")
 
-    def add_item(self, item):
-        self.inventory_dict[item] = item
+    @staticmethod
+    def add_item(item):
+        Game.inventory_dict[item] = item
 
-    def remove_item(self, item):
-        self.inventory_dict[item].pop()
+    @staticmethod
+    def remove_item(item):
+        Game.inventory_dict[item].pop()
 
-    def gameplay(self, story, choice1, choice2, choice3, outcome1, outcome2, outcome3,
+    @staticmethod
+    def gameplay(story, choice1, choice2, choice3, outcome1, outcome2, outcome3,
                  func1=None, param1=None, func2=None, param2=None, func3=None, param3=None):  # s3
         """Trying to make this reusable as possible!!!"""
         input_message = f"""{story}
-        
 What will you do? Type the number of the option or type '/i' to check your inventory.
 
 1- {choice1}
@@ -112,18 +131,34 @@ What will you do? Type the number of the option or type '/i' to check your inven
             action_input = input("=> ")
             if action_input == "1":
                 print(outcome1)
-                return func1(param1)
+                if func1 is not None:
+                    if param1 is None:
+                        return func1()
+                    return func1(param1)
+                else:
+                    continue
             elif action_input == "2":
                 print(outcome2)
-                return func2(param2)
+                if func2 is not None:
+                    if param2 is None:
+                        return func2
+                    return func2(param2)
+                else:
+                    continue
             elif action_input == "3":
                 print(outcome3)
-                return func3(param3)
-            elif action_input == "/i":
-                self.show_inventory()
-            elif action_input == "/q":
-                exit_message = "You sure you want to quit to menu: Y/N: ?"
-                if exit_message.lower() == "y":
+                if func3 is not None:
+                    if param3 is None:
+                        return func3()
+                    return func3(param3)
+                else:
+                    continue
+            elif action_input.lower() == "/i":
+                Helper.show_inventory()
+            elif action_input.lower() == "/q":
+                message = "You sure you want to quit to menu: Y/N: ?"
+                exit_input = input(message)
+                if exit_input.lower() == "y":
                     print("Goodbye!")
                     break
                 else:
@@ -155,27 +190,31 @@ class Menu:  # s1, in the s1 ,the functions should be passed, they are implemete
                 break
             else:
                 new_game.create_new_game()
-                helper.gameplay(sample_txt[0], sample_txt[1], sample_txt[2], sample_txt[3],  # s3
-                        "You found a key.", f"You used {helper.inventory_dict['tool']} to go up a bit.",
-                        "You admired the majestic view of the mountain!", helper.add_item, "Key")
-                helper.show_inventory()
-                break
+                if Game.lives > 0:
+                    Helper.gameplay(story_list[0], choices[0], choices[1], choices[2],  # s3
+                            "You found a key.", f"You used the {Helper.inventory_dict['tool']} to go up a bit.",
+                            "You admired the majestic view of the mountain!", Helper.add_item, "key")
+
+                    Helper.gameplay(story_list[1], choices[3], choices[4], choices[5],  # s3
+                            "You tried the key on the lock and the door opened." if "key" in Helper.inventory_dict
+                            else "You don't have a key to open the lock.",
+                                    """The bird has red wings with blue stripes on. It has a long neck.
+Inside its beak it had sharp teeth and its eyes was following you, interested.""",
+                            f"""You take out your {Helper.inventory_dict['weapon']} and attack the bird.
+It stretches its head and chops your head off.""", func3=Helper.decrease_lives)
+                else:
+                    break
 
     def load_game(self):
         print("Loading your progress")  # s1
 
 
-sample_txt = ["""Once you reach the beginning of the Mount Qaf, you feel amazed by the majestic 
-mountain that you will conquer at the end of this climb. You look at the snowy peaks while 
-thinking of how to start the journey. There is a hill before you.""",
-              "Walk around a bit, maybe you'll find something interesting.",  # s3
-              "Walk up the hill and begin climbing.",
-              "Enjoy the scenery."]
 
-# s1
+
+#s1
 welcome()
 game_menu = Menu(None)
-helper = GameFunctions()  # s2
+
 while True: #s1
     game_menu.show_options()
     game_menu.user_input = input("=> ")
