@@ -1,8 +1,7 @@
 Bertaç
 Human
 Male
-Cheerios
-Sword
-Rope
-Hard
+Easy
+5
+Cheerios, Sword, Rope
 1

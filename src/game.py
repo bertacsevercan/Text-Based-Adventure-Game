@@ -33,12 +33,14 @@ class NewGame:  # s2
     char_att_list = ["1- Name => ", "2- Species => ", "3- Gender => "]
     inventory_list = ["1- Favourite Snack => ", "2- A weapon for the journey => ", "3- A traversal tool => "]
     save_file = None
+    save_file_path = None
 
     def __init__(self, username_input):
         self.username_input = username_input
 
     def create_new_save(self):
-        self.save_file = open(f"./gameSaves/{self.username_input}.txt", "w")
+        NewGame.save_file_path = f"./gameSaves/{self.username_input}.txt"
+        self.save_file = open(NewGame.save_file_path, "w")
 
     def create_char(self, user_inputs):
         self.save_file.write(user_inputs + "\n")
@@ -56,7 +58,7 @@ class NewGame:  # s2
         inventory_dict_keys = ["snack", "weapon", "tool"]
         for j in range(len(self.inventory_list)):
             user_input = input(self.inventory_list[j]).title()
-            self.create_char(user_input)
+            #self.create_char(user_input)
             Game.inventory_dict[inventory_dict_keys[j]] = user_input
 
         print("""Choose your difficulty:
@@ -81,12 +83,14 @@ class NewGame:  # s2
                 warning_unknown_input()
 
         self.create_char(Game.difficulty)
-        self.create_char(str(Game.lives))
+        #self.create_char(str(Game.lives))
         self.save_file.close()
         print("Good luck on your journey " + Game.char_att_dict["name"] + "!\n")
 
 
 class Helper:  # s2
+
+
     @staticmethod
     def increase_lives():
         Game.lives += 1
@@ -109,6 +113,17 @@ class Helper:  # s2
     @staticmethod
     def remove_item(item):
         Game.inventory_dict.pop(item)
+
+    @staticmethod
+    def save_game(): # s4
+        print("You've found a safe spot to rest. Saving your progress...")
+        inventory = ", ".join(list(Game.inventory_dict.values()))
+        with open(NewGame.save_file_path, "a") as f:
+            writings = [str(Game.lives) + "\n", inventory + "\n", str(Game.level) + "\n"]
+            f.writelines(writings)
+
+
+
 
     @staticmethod
     def gameplay(story, choice1, choice2, choice3, outcome1, outcome2, outcome3,
@@ -189,6 +204,7 @@ class Menu:  # s1, in the s1 ,the functions should be passed, they are implemete
                 new_game.create_new_game()
                 while True:
                     if Game.lives > 0:
+                        print("Day 1")
                         Helper.gameplay(story_list[0], choices[0], choices[1], choices[2],  # s3
                                         "You found a key.",
                                         f"You used the {Game.inventory_dict['tool']} to go up a bit.",
@@ -202,6 +218,14 @@ Inside its beak it has sharp teeth and its eyes are following you, interested.""
                                         f"""You take out your {Game.inventory_dict['weapon']} and attack the bird.
 It stretches its head and chops your head off.""", Helper.remove_item if "key" in Game.inventory_dict
                                         else None, "key", func3=Helper.decrease_lives)
+
+                        Helper.gameplay(story_list[2], choices[6], choices[7], choices[8],
+                                      """The voice says 'Too bad, I thought you were clever!' as it gets closer to you. 
+You see a shape like gorilla for a second and you can't even make a peep...""",
+"The darkness says 'Wrong!'. You try to run but it catches you from your legs and drags you to darkness...",
+ """The darkness says 'Correct! You may pass traveller.'
+You saw a light coming from the inner cave and you follow it.""", Helper.decrease_lives, func2=Helper.decrease_lives,
+                                        func3=Helper.save_game)
                     else:
                         print("You ran out of lives! Game over!")
                         break
