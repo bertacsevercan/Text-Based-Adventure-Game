@@ -1,0 +1,4 @@
+Bertaç, Human, Male
+Cheerios, Sword, Rope
+Medium 3
+2

@@ -1,5 +1,5 @@
 from sys import exit  # s1
-
+from os import listdir # s4
 
 story_container = ""
 with open("./story/story.txt") as story_f:
@@ -32,33 +32,26 @@ class Game:  # s2
 class NewGame:  # s2
     char_att_list = ["1- Name => ", "2- Species => ", "3- Gender => "]
     inventory_list = ["1- Favourite Snack => ", "2- A weapon for the journey => ", "3- A traversal tool => "]
-    save_file = None
     save_file_path = None
 
     def __init__(self, username_input):
         self.username_input = username_input
 
-    def create_new_save(self):
-        NewGame.save_file_path = f"./gameSaves/{self.username_input}.txt"
-        self.save_file = open(NewGame.save_file_path, "w")
-
-    def create_char(self, user_inputs):
-        self.save_file.write(user_inputs + "\n")
-
     def create_new_game(self):  # s2
-        self.create_new_save()
+        NewGame.save_file_path = f"./gameSaves/{self.username_input}.txt"
+
         print("Create your character:")
+
         char_dict_keys = ["name", "species", "gender"]
         for i in range(len(self.char_att_list)):
             user_input = input(self.char_att_list[i]).title()
-            self.create_char(user_input)  # save the inputs to a file
             Game.char_att_dict[char_dict_keys[i]] = user_input  # save the inputs to a dict
 
         print("Pack your bag for the journey:")
+
         inventory_dict_keys = ["snack", "weapon", "tool"]
         for j in range(len(self.inventory_list)):
             user_input = input(self.inventory_list[j]).title()
-            #self.create_char(user_input)
             Game.inventory_dict[inventory_dict_keys[j]] = user_input
 
         print("""Choose your difficulty:
@@ -82,14 +75,10 @@ class NewGame:  # s2
             else:
                 warning_unknown_input()
 
-        self.create_char(Game.difficulty)
-        #self.create_char(str(Game.lives))
-        self.save_file.close()
         print("Good luck on your journey " + Game.char_att_dict["name"] + "!\n")
 
 
 class Helper:  # s2
-
 
     @staticmethod
     def increase_lives():
@@ -115,15 +104,15 @@ class Helper:  # s2
         Game.inventory_dict.pop(item)
 
     @staticmethod
-    def save_game(): # s4
+    def save_game():  # s4
         print("You've found a safe spot to rest. Saving your progress...")
         inventory = ", ".join(list(Game.inventory_dict.values()))
-        with open(NewGame.save_file_path, "a") as f:
-            writings = [str(Game.lives) + "\n", inventory + "\n", str(Game.level) + "\n"]
+        char_atts = ", ".join(list(Game.char_att_dict.values()))
+        Game.level += 1
+        with open(NewGame.save_file_path, "w") as f:
+            writings = [char_atts + "\n", inventory + "\n", str(Game.difficulty) + " ", str(Game.lives) + "\n",
+                        str(Game.level) + "\n"]
             f.writelines(writings)
-
-
-
 
     @staticmethod
     def gameplay(story, choice1, choice2, choice3, outcome1, outcome2, outcome3,
@@ -220,19 +209,27 @@ It stretches its head and chops your head off.""", Helper.remove_item if "key" i
                                         else None, "key", func3=Helper.decrease_lives)
 
                         Helper.gameplay(story_list[2], choices[6], choices[7], choices[8],
-                                      """The voice says 'Too bad, I thought you were clever!' as it gets closer to you. 
+                                        """The voice says 'Too bad, I thought you were clever!' as it gets closer to you. 
 You see a shape like gorilla for a second and you can't even make a peep...""",
-"The darkness says 'Wrong!'. You try to run but it catches you from your legs and drags you to darkness...",
- """The darkness says 'Correct! You may pass traveller.'
-You saw a light coming from the inner cave and you follow it.""", Helper.decrease_lives, func2=Helper.decrease_lives,
+                                        "The darkness says 'Wrong!'. You try to run but it catches you from your legs and drags you to darkness...",
+                                        """The darkness says 'Correct! You may pass traveller.'
+You saw a light coming from the inner cave and you follow it.""",
+                                        Helper.decrease_lives, func2=Helper.decrease_lives,
                                         func3=Helper.save_game)
                     else:
                         print("You ran out of lives! Game over!")
                         break
-                break # go back to menu
+                break  # go back to menu
 
     def load_game(self):
-        print("Loading your progress")  # s1
+        print("Loading your progress...")  # s1
+        try: # s4
+            path = './gameSaves/' + listdir('./gameSaves/')[0]
+            with open(path, "r") as f:
+                print(f.readlines())
+
+        except TypeError:
+            print("No save data found!")
 
 
 # s1
@@ -240,13 +237,17 @@ game_menu = Menu(None)
 
 while True:  # s1
     Menu.welcome()
+
     game_menu.user_input = input("=> ")
+
     if game_menu.user_input == "1" or game_menu.user_input.lower() == "start":
         game_menu.new_game()
+
     elif game_menu.user_input == "2" or game_menu.user_input.lower() == "load":
         game_menu.load_game()
-        break
+
     elif game_menu.user_input == "3" or game_menu.user_input.lower() == "quit":
         break
+
     else:
         warning_unknown_input()
