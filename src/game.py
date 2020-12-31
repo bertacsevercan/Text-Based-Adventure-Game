@@ -1,5 +1,6 @@
 from sys import exit  # s1
 
+
 story_container = ""
 with open("./story/story.txt") as story_f:
     for line in story_f:
@@ -10,11 +11,6 @@ choices = []
 with open("./story/choices.txt") as choices_f:
     for line in choices_f:
         choices.append(line.strip())
-
-
-def welcome():  # s1
-    title = "Journey to Mount Qaf"
-    print(f"***Welcome to the {title}***")
 
 
 def warning_unknown_input():  # s1
@@ -154,11 +150,11 @@ What will you do? Type the number of the option or type '/i' to check your inven
             elif action_input.lower() == "/i":
                 Helper.show_inventory()
             elif action_input.lower() == "/q":
-                message = "You sure you want to quit to menu: Y/N: ?"
+                message = "You sure you want to quit the game? Y/N => "
                 exit_input = input(message)
                 if exit_input.lower() == "y":
                     print("Goodbye!")
-                    break
+                    exit()
                 else:
                     continue
             else:
@@ -168,6 +164,7 @@ What will you do? Type the number of the option or type '/i' to check your inven
 class Menu:  # s1, in the s1 ,the functions should be passed, they are implemeted in s2
 
     options = """
+    
 1- Press key '1' or type 'start' to start a new game
 2- Press key '2' or type 'load to load your progress
 3- Press key '3' or type 'quit' to quit the game"""
@@ -175,8 +172,10 @@ class Menu:  # s1, in the s1 ,the functions should be passed, they are implemete
     def __init__(self, user_input):
         self.user_input = user_input
 
-    def show_options(self):
-        print(self.options)
+    @staticmethod
+    def welcome():
+        title = "Journey to Mount Qaf"
+        print(f"***Welcome to the {title}***", Menu.options)
 
     def new_game(self):
         print("Starting a new game...")  # s1
@@ -206,17 +205,17 @@ It stretches its head and chops your head off.""", Helper.remove_item if "key" i
                     else:
                         print("You ran out of lives! Game over!")
                         break
+                break # go back to menu
 
     def load_game(self):
         print("Loading your progress")  # s1
 
 
 # s1
-welcome()
 game_menu = Menu(None)
 
 while True:  # s1
-    game_menu.show_options()
+    Menu.welcome()
     game_menu.user_input = input("=> ")
     if game_menu.user_input == "1" or game_menu.user_input.lower() == "start":
         game_menu.new_game()
