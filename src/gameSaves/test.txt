@@ -1,4 +1,4 @@
 Bertaç, Human, Male
 Cheerios, Sword, Rope
-Medium 3
+Easy 5
 2

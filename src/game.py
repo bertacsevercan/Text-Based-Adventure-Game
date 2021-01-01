@@ -1,5 +1,5 @@
 from sys import exit  # s1
-from os import listdir # s4
+from os import listdir  # s4
 
 story_container = ""
 with open("./story/story.txt") as story_f:
@@ -32,6 +32,8 @@ class Game:  # s2
 class NewGame:  # s2
     char_att_list = ["1- Name => ", "2- Species => ", "3- Gender => "]
     inventory_list = ["1- Favourite Snack => ", "2- A weapon for the journey => ", "3- A traversal tool => "]
+    char_dict_keys = ["name", "species", "gender"]
+    inventory_dict_keys = ["snack", "weapon", "tool"]
     save_file_path = None
 
     def __init__(self, username_input):
@@ -42,17 +44,15 @@ class NewGame:  # s2
 
         print("Create your character:")
 
-        char_dict_keys = ["name", "species", "gender"]
         for i in range(len(self.char_att_list)):
             user_input = input(self.char_att_list[i]).title()
-            Game.char_att_dict[char_dict_keys[i]] = user_input  # save the inputs to a dict
+            Game.char_att_dict[self.char_dict_keys[i]] = user_input  # save the inputs to a dict
 
         print("Pack your bag for the journey:")
 
-        inventory_dict_keys = ["snack", "weapon", "tool"]
         for j in range(len(self.inventory_list)):
             user_input = input(self.inventory_list[j]).title()
-            Game.inventory_dict[inventory_dict_keys[j]] = user_input
+            Game.inventory_dict[self.inventory_dict_keys[j]] = user_input
 
         print("""Choose your difficulty:
 1- Easy
@@ -165,12 +165,61 @@ What will you do? Type the number of the option or type '/i' to check your inven
                 warning_unknown_input()
 
 
+class Levels:  # s3
+
+    @staticmethod
+    def core_game(level):
+        while True:
+            if Game.lives > 0:
+                if level == 1:
+                    Levels.level1()
+                elif level == 2:
+                    Levels.level2()
+                else:
+                    print("Oops! Something went wrong.")
+                    break
+            else:
+                print("You ran out of lives! Game over!")
+                break
+
+    @staticmethod
+    def level1():
+        print("Day 1")
+        Helper.gameplay(story_list[0], choices[0], choices[1], choices[2],  # s3
+                        "You found a key.",
+                        f"You used the {Game.inventory_dict['tool']} to go up a bit.",
+                        "You admired the majestic view of the mountain!", Helper.add_item, "key", print)
+
+        Helper.gameplay(story_list[1], choices[3], choices[4], choices[5],  # s3
+                        "You tried the key on the lock and the door opened." if "key" in Game.inventory_dict
+                        else "You don't have a key to open the lock.",
+                        """The bird has red wings with blue stripes on. It has a long neck.
+Inside its beak it has sharp teeth and its eyes are following you, interested.""",
+                        f"""You take out your {Game.inventory_dict['weapon']} and attack the bird.
+It stretches its head and chops your head off.""", Helper.remove_item if "key" in Game.inventory_dict
+                        else None, "key", func3=Helper.decrease_lives)
+
+        Helper.gameplay(story_list[2], choices[6], choices[7], choices[8],
+                        """The voice says 'Too bad, I thought you were clever!' as it gets closer to you. 
+You see a shape like gorilla for a second and you can't even make a peep...""",
+                        "The darkness says 'Wrong!'. You try to run but it catches you from your legs and drags you to darkness...",
+                        """The darkness says 'Correct! You may pass traveller.'
+You saw a light coming from the inner cave and you follow it.""",
+                        Helper.decrease_lives, func2=Helper.decrease_lives,
+                        func3=Helper.save_game)
+
+    @staticmethod
+    def level2():
+        print("Day 2")
+
+
+
 class Menu:  # s1, in the s1 ,the functions should be passed, they are implemeted in s2
 
     options = """
     
 1- Press key '1' or type 'start' to start a new game
-2- Press key '2' or type 'load to load your progress
+2- Press key '2' or type 'load' to load your progress
 3- Press key '3' or type 'quit' to quit the game"""
 
     def __init__(self, user_input):
@@ -191,42 +240,32 @@ class Menu:  # s1, in the s1 ,the functions should be passed, they are implemete
                 break
             else:
                 new_game.create_new_game()
-                while True:
-                    if Game.lives > 0:
-                        print("Day 1")
-                        Helper.gameplay(story_list[0], choices[0], choices[1], choices[2],  # s3
-                                        "You found a key.",
-                                        f"You used the {Game.inventory_dict['tool']} to go up a bit.",
-                                        "You admired the majestic view of the mountain!", Helper.add_item, "key", print)
-
-                        Helper.gameplay(story_list[1], choices[3], choices[4], choices[5],  # s3
-                                        "You tried the key on the lock and the door opened." if "key" in Game.inventory_dict
-                                        else "You don't have a key to open the lock.",
-                                        """The bird has red wings with blue stripes on. It has a long neck.
-Inside its beak it has sharp teeth and its eyes are following you, interested.""",
-                                        f"""You take out your {Game.inventory_dict['weapon']} and attack the bird.
-It stretches its head and chops your head off.""", Helper.remove_item if "key" in Game.inventory_dict
-                                        else None, "key", func3=Helper.decrease_lives)
-
-                        Helper.gameplay(story_list[2], choices[6], choices[7], choices[8],
-                                        """The voice says 'Too bad, I thought you were clever!' as it gets closer to you. 
-You see a shape like gorilla for a second and you can't even make a peep...""",
-                                        "The darkness says 'Wrong!'. You try to run but it catches you from your legs and drags you to darkness...",
-                                        """The darkness says 'Correct! You may pass traveller.'
-You saw a light coming from the inner cave and you follow it.""",
-                                        Helper.decrease_lives, func2=Helper.decrease_lives,
-                                        func3=Helper.save_game)
-                    else:
-                        print("You ran out of lives! Game over!")
-                        break
+                Levels.core_game(1)
                 break  # go back to menu
 
     def load_game(self):
         print("Loading your progress...")  # s1
-        try: # s4
+        try:  # s4
             path = './gameSaves/' + listdir('./gameSaves/')[0]
             with open(path, "r") as f:
-                print(f.readlines())
+                content = f.readlines()
+
+                char = content[0].strip().split(",")
+
+                inventory = content[1].strip().split(",")
+
+                for i in range(len(char)):
+                    Game.char_att_dict[NewGame.char_dict_keys[i]] = char[i]
+                    Game.inventory_dict[NewGame.inventory_dict_keys[i]] = inventory[i]
+
+                difficulty = content[2].strip().split()
+                Game.difficulty = difficulty[0]
+                Game.lives = int(difficulty[1])
+
+                level = int(content[3].strip())
+                Game.level = level
+
+                Levels.core_game(Game.level)
 
         except TypeError:
             print("No save data found!")
