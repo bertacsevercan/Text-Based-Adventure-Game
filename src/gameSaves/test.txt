@@ -1,4 +1,4 @@
-Bertaç, Human, Male
-Cheerios, Sword, Rope
+A, B, C
+A, B, C
 Easy 5
 2

@@ -27,6 +27,7 @@ class Game:  # s2
     difficulty = "Medium"
     lives = 3
     level = 1
+    isAlive = True
 
 
 class NewGame:  # s2
@@ -88,6 +89,7 @@ class Helper:  # s2
     @staticmethod
     def decrease_lives():
         Game.lives -= 1
+        Game.isAlive = False
         print("You died! Life count: ", Game.lives)
 
     @staticmethod
@@ -184,34 +186,61 @@ class Levels:  # s3
 
     @staticmethod
     def level1():
-        print("Day 1")
-        Helper.gameplay(story_list[0], choices[0], choices[1], choices[2],  # s3
-                        "You found a key.",
-                        f"You used the {Game.inventory_dict['tool']} to go up a bit.",
-                        "You admired the majestic view of the mountain!", Helper.add_item, "key", print)
+        while True:
+            print("Day 1")
+            Game.isAlive = True
 
-        Helper.gameplay(story_list[1], choices[3], choices[4], choices[5],  # s3
-                        "You tried the key on the lock and the door opened." if "key" in Game.inventory_dict
-                        else "You don't have a key to open the lock.",
-                        """The bird has red wings with blue stripes on. It has a long neck.
+            Helper.gameplay(story_list[0], choices[0], choices[1], choices[2],  # s3
+                            "You found a key.",
+                            f"You used the {Game.inventory_dict['tool']} to go up a bit.",
+                            "You admired the majestic view of the mountain!", Helper.add_item, "key", print)
+
+            Helper.gameplay(story_list[1], choices[3], choices[4], choices[5],  # s3
+                            "You tried the key on the lock and the door opened." if "key" in Game.inventory_dict
+                            else "You don't have a key to open the lock.",
+                            """The bird has red wings with blue stripes on. It has a long neck.
 Inside its beak it has sharp teeth and its eyes are following you, interested.""",
-                        f"""You take out your {Game.inventory_dict['weapon']} and attack the bird.
+                            f"""You take out your {Game.inventory_dict['weapon']} and attack the bird.
 It stretches its head and chops your head off.""", Helper.remove_item if "key" in Game.inventory_dict
-                        else None, "key", func3=Helper.decrease_lives)
+                            else None, "key", func3=Helper.decrease_lives)
+            if not Game.isAlive:
+                break
 
-        Helper.gameplay(story_list[2], choices[6], choices[7], choices[8],
-                        """The voice says 'Too bad, I thought you were clever!' as it gets closer to you. 
+
+            Helper.gameplay(story_list[2], choices[6], choices[7], choices[8],
+                            """The voice says 'Too bad, I thought you were clever!' as it gets closer to you. 
 You see a shape like gorilla for a second and you can't even make a peep...""",
-                        "The darkness says 'Wrong!'. You try to run but it catches you from your legs and drags you to darkness...",
-                        """The darkness says 'Correct! You may pass traveller.'
+                            "The darkness says 'Wrong!'. You try to run but it catches you from your legs and drags you to darkness...",
+                            """The darkness says 'Correct! You may pass traveller.'
 You saw a light coming from the inner cave and you follow it.""",
-                        Helper.decrease_lives, func2=Helper.decrease_lives,
-                        func3=Helper.save_game)
+                            Helper.decrease_lives, func2=Helper.decrease_lives,
+                            func3=Helper.save_game)
 
     @staticmethod
     def level2():
         print("Day 2")
 
+        Helper.gameplay(story_list[3], choices[9], f"{choices[10]} {Game.inventory_dict['weapon']}.", choices[11],
+                        f"""The dragon smacks its lips and shows its tongue. 
+It looks hungry, you remember you have {Game.inventory_dict['snack'] if 'snack' in Game.inventory_dict else "no snack."}.""",
+                        "You get closer to the dragon slowly and with one swift blow, it's dead.",
+                        f"""You take out {Game.inventory_dict['snack'] if 'snack' in Game.inventory_dict else "no snack."} from your bag and give it to the dragon.
+The dragon loves it and flies away happily.""", func2=print, func3=Helper.remove_item, param3="snack")
+
+        Helper.gameplay(story_list[4], choices[12], choices[13], choices[14],
+                        "You open the chest on the left. You found an extra life!", """You open the chest on the right but the chest is empty.
+You try to look inside closely but something pushes you inside the chest.
+The chest close itself.""", "The hood disappears without a trace as you walk away from it.",
+                        Helper.increase_lives, func2=Helper.decrease_lives, func3=print)
+        Helper.gameplay(story_list[5], choices[15], f"{choices[16]} {Game.inventory_dict['weapon']}", choices[17],
+                        "The dragon shoots flame to your way and burn you!",
+                        "The dragon crushes you with its tail, you don't even see it coming...",
+                        """The smaller dragon from before appear behind the mother and flies to you, showing affection for you.
+                        You pet its head and the mother dragon looks happy about this.
+                        Congratulations! You've conquered the mountain!""" if 'snack' not in Game.inventory_dict else
+                        "Nothing happens. The dragon moves its wings and the wind knocks you off from the mountain...",
+                        Helper.decrease_lives, func2=Helper.decrease_lives,
+                        func3=exit if 'snack' not in Game.inventory_dict else Helper.decrease_lives)
 
 
 class Menu:  # s1, in the s1 ,the functions should be passed, they are implemeted in s2
@@ -240,35 +269,36 @@ class Menu:  # s1, in the s1 ,the functions should be passed, they are implemete
                 break
             else:
                 new_game.create_new_game()
-                Levels.core_game(1)
-                break  # go back to menu
-
-    def load_game(self):
-        print("Loading your progress...")  # s1
-        try:  # s4
-            path = './gameSaves/' + listdir('./gameSaves/')[0]
-            with open(path, "r") as f:
-                content = f.readlines()
-
-                char = content[0].strip().split(",")
-
-                inventory = content[1].strip().split(",")
-
-                for i in range(len(char)):
-                    Game.char_att_dict[NewGame.char_dict_keys[i]] = char[i]
-                    Game.inventory_dict[NewGame.inventory_dict_keys[i]] = inventory[i]
-
-                difficulty = content[2].strip().split()
-                Game.difficulty = difficulty[0]
-                Game.lives = int(difficulty[1])
-
-                level = int(content[3].strip())
-                Game.level = level
-
                 Levels.core_game(Game.level)
+            break  # go back to menu
 
-        except TypeError:
-            print("No save data found!")
+
+def load_game(self):
+    print("Loading your progress...")  # s1
+    try:  # s4
+        path = './gameSaves/' + listdir('./gameSaves/')[0]
+        with open(path, "r") as f:
+            content = f.readlines()
+
+            char = content[0].strip().split(",")
+
+            inventory = content[1].strip().split(",")
+
+            for i in range(len(char)):
+                Game.char_att_dict[NewGame.char_dict_keys[i]] = char[i]
+                Game.inventory_dict[NewGame.inventory_dict_keys[i]] = inventory[i]
+
+            difficulty = content[2].strip().split()
+            Game.difficulty = difficulty[0]
+            Game.lives = int(difficulty[1])
+
+            level = int(content[3].strip())
+            Game.level = level
+
+            Levels.core_game(Game.level)
+
+    except TypeError:
+        print("No save data found!")
 
 
 # s1
