@@ -1,4 +1,4 @@
-A, B, C
-A, B, C
-Easy 5
+Canwho, Human, Female
+Chocalate, Sword, Rope
+Medium 3
 2
