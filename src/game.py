@@ -316,10 +316,14 @@ class Menu:  # s1, in the s1 ,the functions should be passed, they are implemete
             break  # go back to menu
 
     def load_game(self):
-        cprint("Loading your progress...", "blue")  # s1
         try:  # s4
-            path = './gameSaves/' + listdir('./gameSaves/')[0]
-            with open(path) as f:
+            saves = list(map(lambda x: x.replace(".txt", ""), listdir('./gameSaves/')))  # get rid of .txt
+            cprint("Type your username from the list:", "yellow")
+            for save in saves:
+                cprint(save, "magenta", attrs=["bold"])
+            path = input(colored("=> ", "green", attrs=["bold"]))
+            with open(f'./gameSaves/{path}.txt') as f:
+                cprint("Loading your progress...", "blue")  # s1 #s3
                 content = f.readlines()
 
                 char = content[0].strip().split(",")
@@ -339,7 +343,7 @@ class Menu:  # s1, in the s1 ,the functions should be passed, they are implemete
 
                 Levels.core_game()
 
-        except (TypeError, IndexError):
+        except (TypeError, IndexError, FileNotFoundError):
             cprint("No save data found!", "red", attrs=["bold"])
 
 
