@@ -1,4 +1,4 @@
-Canwho, Human, Female
-Chocalate, Sword, Rope
-Medium 3
+Bertaç, Human, Male
+Banana, Sword, Rope
+Easy 4
 2

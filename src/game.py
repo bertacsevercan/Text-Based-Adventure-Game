@@ -1,5 +1,6 @@
 from sys import exit  # s1
 from os import listdir  # s4
+from termcolor import cprint, colored  # s3
 
 story_container = ""
 with open("./story/story.txt") as story_f:
@@ -14,7 +15,7 @@ with open("./story/choices.txt") as choices_f:
 
 
 def warning_unknown_input():  # s1
-    print("Unknown input! Please enter a valid one.")
+    cprint("Unknown input! Please enter a valid one.", "red")
 
 
 class Game:  # s2
@@ -43,24 +44,23 @@ class NewGame:  # s2
     def create_new_game(self):  # s2
         NewGame.save_file_path = f"./gameSaves/{self.username_input}.txt"
 
-        print("Create your character:")
+        cprint("Create your character:", "yellow", attrs=["bold", "underline"])
 
         for i in range(len(self.char_att_list)):
-            user_input = input(self.char_att_list[i]).title()
+            user_input = input(colored(self.char_att_list[i], "magenta", attrs=["bold"])).title()
             Game.char_att_dict[self.char_dict_keys[i]] = user_input  # save the inputs to a dict
 
-        print("Pack your bag for the journey:")
+        cprint("Pack your bag for the journey:", "yellow", attrs=["bold", "underline"])
 
         for j in range(len(self.inventory_list)):
-            user_input = input(self.inventory_list[j]).title()
+            user_input = input(colored(self.inventory_list[j], "magenta", attrs=["bold"])).title()
             Game.inventory_dict[self.inventory_dict_keys[j]] = user_input
 
-        print("""Choose your difficulty:
-1- Easy
-2- Medium
-3- Hard""")
+        cprint("Choose your difficulty:", "yellow", attrs=["bold", "underline"])
+        cprint("1- Easy\n2- Medium\n3- Hard", "magenta", attrs=["bold"])
+
         while True:
-            difficulty_input = input("=> ")
+            difficulty_input = input(colored("=> ", "green", attrs=["bold"]))
             if difficulty_input == "1" or difficulty_input.lower() == "easy":
                 Game.difficulty = "Easy"
                 Game.lives = 5
@@ -76,7 +76,8 @@ class NewGame:  # s2
             else:
                 warning_unknown_input()
 
-        print("Good luck on your journey " + Game.char_att_dict["name"] + "!\n")
+        cprint("Good luck on your journey " + colored(Game.char_att_dict["name"], "cyan") + "\n", "yellow",
+               attrs=["bold"])
 
 
 class Helper:  # s2
@@ -84,18 +85,18 @@ class Helper:  # s2
     @staticmethod
     def increase_lives():
         Game.lives += 1
-        print("You gained an extra life! Life count: ", Game.lives)
+        print(colored("You gained an extra life! Life count: ", "green", attrs=["bold"]), Game.lives)
 
     @staticmethod
     def decrease_lives():
         Game.lives -= 1
         Game.isAlive = False
-        print("You died! Life count: ", Game.lives)
+        print(colored("You died! Life count: ", "red", attrs=["bold"]), Game.lives)
 
     @staticmethod
     def show_inventory():
         inventory = ", ".join(list(Game.inventory_dict.values()))
-        print(f"Inventory: {inventory}")
+        cprint(f"Inventory: {inventory}", "cyan")
 
     @staticmethod
     def add_item(item):
@@ -109,15 +110,15 @@ class Helper:  # s2
     def show_char():
         char = ", ".join(list(Game.char_att_dict.values()))
         lives = Game.lives
-        print(f"Your character: {char}.\nLife count: {lives}")
+        cprint(f"Your character: {char}.\nLife count: {lives}", "cyan")
 
     @staticmethod
     def show_help():
-        print("Type the number of the option you want to choose.\n" +
-              "Commands you can use:\n/i => Shows inventory.\n" +
-              "/q => Exits the game.\n" +
-              "/c => Shows character traits.\n" +
-              "/h => Shows help.")
+        cprint("Type the number of the option you want to choose.\n" +
+               "Commands you can use:\n/i => Shows inventory.\n" +
+               "/q => Exits the game.\n" +
+               "/c => Shows character traits.\n" +
+               "/h => Shows help.", "blue")
 
     @staticmethod
     def load_inventory():
@@ -131,7 +132,7 @@ class Helper:  # s2
 
     @staticmethod
     def save_game():  # s4
-        print("You've found a safe spot to rest. Saving your progress...")
+        cprint("You've found a safe spot to rest. Saving your progress...", "yellow", attrs=["bold"])
         inventory = ", ".join(list(Game.inventory_dict.values()))
         char_attrs = ", ".join(list(Game.char_att_dict.values()))
         Game.level += 1
@@ -144,17 +145,17 @@ class Helper:  # s2
     def gameplay(story, choice1, choice2, choice3, outcome1, outcome2, outcome3,
                  func1=None, param1=None, func2=None, param2=None, func3=None, param3=None):  # s3
         """Trying to make this reusable as possible!!!"""
-        input_message = f"""{story}
-What will you do? Type the number of the option or type '/h' to show help.
+        input_message = f"""What will you do? Type the number of the option or type '/h' to show help.
 
 1- {choice1}
 2- {choice2}
 3- {choice3}"""
-        print(input_message)
+        cprint(story, "cyan", attrs=["bold"])
+        cprint(input_message, "magenta", attrs=["bold"])
         while True:
-            action_input = input("=> ")
+            action_input = input(colored("=> ", "green", attrs=["bold"]))
             if action_input == "1":
-                print(outcome1)
+                cprint(outcome1, "green", attrs=["bold"])
                 if func1 is not None:
                     if param1 is None:
                         return func1()
@@ -162,7 +163,7 @@ What will you do? Type the number of the option or type '/h' to show help.
                 else:
                     continue
             elif action_input == "2":
-                print(outcome2)
+                cprint(outcome2, "green", attrs=["bold"])
                 if func2 is not None:
                     if param2 is None:
                         return func2()
@@ -170,7 +171,7 @@ What will you do? Type the number of the option or type '/h' to show help.
                 else:
                     continue
             elif action_input == "3":
-                print(outcome3)
+                cprint(outcome3, "green", attrs=["bold"])
                 if func3 is not None:
                     if param3 is None:
                         return func3()
@@ -184,10 +185,10 @@ What will you do? Type the number of the option or type '/h' to show help.
             elif action_input.lower() == "/i":
                 Helper.show_inventory()
             elif action_input.lower() == "/q":
-                message = "You sure you want to quit the game? Y/N => "
+                message = colored("You sure you want to quit the game? Y/N => ", "magenta", attrs=["bold"])
                 exit_input = input(message)
                 if exit_input.lower() == "y":
-                    print("Goodbye!")
+                    cprint("Goodbye!", "blue")
                     exit()
                 else:
                     continue
@@ -206,21 +207,20 @@ class Levels:  # s3
                 elif Game.level == 2:
                     Levels.level2()
                 else:
-                    print("Oops! Something went wrong.")
+                    cprint("Oops! Something went wrong.", "red", attrs=["bold"])
                     break
             else:
-                print("You ran out of lives! Game over!")
+                cprint("You ran out of lives! Game over!", "red", attrs=["bold"])
                 break
 
     @staticmethod
     def level1():
-        # if Game.level == 1:
         while True:
-            print("Day 1")
+            cprint("Day 1", "yellow", attrs=["bold", "underline"])
             Game.isAlive = True
 
             Helper.gameplay(story_list[0], choices[0], choices[1], choices[2],  # s3
-                            "You found a key.",
+                            "\nYou found a key.",
                             f"You used the {Game.inventory_dict['tool']} to go up a bit.",
                             "You admired the majestic view of the mountain!", Helper.add_item, "key", print)
 
@@ -253,13 +253,13 @@ You saw a light coming from the inner cave and you follow it.""",
     def level2():
         while True:
             Helper.load_inventory()
-            print("Day 2")
+            cprint("Day 2", "yellow", attrs=["bold", "underline"])
             Game.isAlive = True
 
             Helper.gameplay(story_list[3], choices[9], f"{choices[10]} {Game.inventory_dict['weapon']}.", choices[11],
                             f"""The dragon smacks its lips and shows its tongue. 
 It looks hungry, you remember you have {Game.inventory_dict['snack'] if 'snack' in Game.inventory_dict else "no snack."}.""",
-                            "You get closer to the dragon slowly and with one swift blow, it's dead.",
+                            "\n***You get closer to the dragon slowly and with one swift blow, it's dead.",
                             f"""You take out {Game.inventory_dict['snack'] if 'snack' in Game.inventory_dict else "no snack."} from your bag and give it to the dragon.
 The dragon loves it and flies away happily.""", func2=print, func3=Helper.remove_item, param3="snack")
 
@@ -298,15 +298,17 @@ class Menu:  # s1, in the s1 ,the functions should be passed, they are implemete
     @staticmethod
     def welcome():
         title = "Journey to Mount Qaf"
-        print(f"***Welcome to the {title}***", Menu.options)
+        print(colored(f"\n***Welcome to the {title}***", "yellow", attrs=["bold"]),
+              colored(Menu.options, "magenta", attrs=["bold"]))
 
     def new_game(self):
-        print("Starting a new game...")  # s1
-        message = "Enter a user name to save your progress or type '/b' to go back => "  # s2
+        cprint("Starting a new game...", "blue")  # s1
+        message = colored("Enter a user name to save your progress or type '/b' to go back => ", "magenta",
+                          attrs=["bold"])  # s2
         new_game = NewGame(input(message))
         while True:
             if new_game.username_input == "/b":
-                print("Going back to menu...")
+                cprint("Going back to menu...", "blue")
                 break
             else:
                 new_game.create_new_game()
@@ -314,10 +316,10 @@ class Menu:  # s1, in the s1 ,the functions should be passed, they are implemete
             break  # go back to menu
 
     def load_game(self):
-        print("Loading your progress...")  # s1
+        cprint("Loading your progress...", "blue")  # s1
         try:  # s4
             path = './gameSaves/' + listdir('./gameSaves/')[0]
-            with open(path, "r") as f:
+            with open(path) as f:
                 content = f.readlines()
 
                 char = content[0].strip().split(",")
@@ -338,7 +340,7 @@ class Menu:  # s1, in the s1 ,the functions should be passed, they are implemete
                 Levels.core_game()
 
         except (TypeError, IndexError):
-            print("No save data found!")
+            cprint("No save data found!", "red", attrs=["bold"])
 
 
 # s1
@@ -347,7 +349,7 @@ game_menu = Menu(None)
 while True:  # s1
     Menu.welcome()
 
-    game_menu.user_input = input("=> ")
+    game_menu.user_input = input(colored("=> ", "green", attrs=["bold"]))
 
     if game_menu.user_input == "1" or game_menu.user_input.lower() == "start":
         game_menu.new_game()
