@@ -2,6 +2,7 @@ from sys import exit  # s1
 from os import listdir  # s4
 from termcolor import cprint, colored  # s3
 
+# s2
 story_container = ""
 with open("./story/story.txt") as story_f:
     for line in story_f:
@@ -15,13 +16,31 @@ with open("./story/choices.txt") as choices_f:
 
 
 def warning_unknown_input():  # s1
+    """Shows a warning message when the user enters an unknown input"""
     cprint("Unknown input! Please enter a valid one.", "red")
 
 
 class Game:  # s2
     """
-    Gonna save this game_state to the file and then read it in load game. As long as the attributes are updated
-    it's ok
+    The game state to be saved when the user passes one level.
+
+    ***
+
+    Attributes:
+
+    char_att_dict: dictionary that stores 'name', 'species', 'gender' keys and values.
+
+    inventory_dict: dictionary that stores 'snack', 'weapon', 'tool' keys and values. New keys pairs can be added.
+
+    difficulty: str to store either 'Easy', 'Medium' or 'Hard'.
+
+    lives: int to store live counts according to the difficulty. 'Easy':5, 'Medium':3, 'Hard':1.
+
+    level: int to store levels of the game. Starts from 1.
+
+    isAlive: bool to store whether the char is alive or not.
+
+    save_file_path: absolute file path.
     """
     char_att_dict = {}
     inventory_dict = {}
@@ -29,20 +48,53 @@ class Game:  # s2
     lives = 3
     level = 1
     isAlive = True
+    save_file_path = None
 
 
 class NewGame:  # s2
+    """
+    A class to use when creating a new game.
+
+    ***
+
+    Attributes:
+
+    char_att_list, char_dict_keys: defaults to create the char_att_dict.
+
+    inventory_list, inventory_dict_keys: defaults to create the inventory_dict.
+
+    username_input: name of the save file for the user.
+
+    ***
+
+    Methods:
+
+    create_new_game: Fills in the Game class attribute values.
+
+    """
     char_att_list = ["1- Name => ", "2- Species => ", "3- Gender => "]
     inventory_list = ["1- Favourite Snack => ", "2- A weapon for the journey => ", "3- A traversal tool => "]
     char_dict_keys = ["name", "species", "gender"]
     inventory_dict_keys = ["snack", "weapon", "tool"]
-    save_file_path = None
 
     def __init__(self, username_input):
         self.username_input = username_input
 
     def create_new_game(self):  # s2
-        NewGame.save_file_path = f"./gameSaves/{self.username_input}.txt"
+        """
+        Creates a new game by assigning the necessary game state vars.
+
+        ***
+
+        Assigns the save_file_path with an input.
+
+        Assigns the key pairs for Game.char_att_dict.
+
+        Assigns the key pairs for Game.inventory_dict.
+
+        Assigns the difficulty and live attributes in the Game.
+        """
+        Game.save_file_path = f"./gameSaves/{self.username_input}.txt"
 
         cprint("Create your character:", "yellow", attrs=["bold", "underline"])
 
@@ -81,39 +133,55 @@ class NewGame:  # s2
 
 
 class Helper:  # s2
+    """Static class that has all the necessary helper methods."""
 
     @staticmethod
     def increase_lives():
+        """Increases the Game.lives count by 1."""
         Game.lives += 1
         print(colored("You gained an extra life! Life count: ", "green", attrs=["bold"]), Game.lives)
 
     @staticmethod
     def decrease_lives():
+        """Decreases the Game.lives count by 1 and sets the Game.isAlive to False."""
         Game.lives -= 1
         Game.isAlive = False
         print(colored("You died! Life count: ", "red", attrs=["bold"]), Game.lives)
 
     @staticmethod
     def show_inventory():
+        """Joins the values of Game.inventory_dict and prints them."""
         inventory = ", ".join(list(Game.inventory_dict.values()))
         cprint(f"Inventory: {inventory}", "cyan")
 
     @staticmethod
     def add_item(item):
+        """
+        Adds a key pair to the Game.inventory_dict.
+
+        item:param -> name of the key and value to be added.
+        """
         Game.inventory_dict[item] = item
 
     @staticmethod
     def remove_item(item):
+        """
+        Removes a key pair from the Game.inventory_dict.
+
+        item:param -> name of the key to be removed.
+        """
         Game.inventory_dict.pop(item)
 
     @staticmethod
     def show_char():
+        """Joins the Game.char_att_dict values and Game.lives and prints them."""
         char = ", ".join(list(Game.char_att_dict.values()))
         lives = Game.lives
         cprint(f"Your character: {char}.\nLife count: {lives}", "cyan")
 
     @staticmethod
     def show_help():
+        """Prints the helper commands."""
         cprint("Type the number of the option you want to choose.\n" +
                "Commands you can use:\n/i => Shows inventory.\n" +
                "/q => Exits the game.\n" +
@@ -122,8 +190,8 @@ class Helper:  # s2
 
     @staticmethod
     def load_inventory():
-        path = './gameSaves/' + listdir('./gameSaves/')[0]
-        with open(path, "r") as f:
+        """Reads the save file to store the possible lost items in inventory_dict."""
+        with open(Game.save_file_path, "r") as f:
             content = f.readlines()
             inventory = content[1].strip().split(",")
 
@@ -132,11 +200,12 @@ class Helper:  # s2
 
     @staticmethod
     def save_game():  # s4
+        """Writes the inventory, character, difficulty, lives to user's file."""
         cprint("You've found a safe spot to rest. Saving your progress...", "yellow", attrs=["bold"])
         inventory = ", ".join(list(Game.inventory_dict.values()))
         char_attrs = ", ".join(list(Game.char_att_dict.values()))
         Game.level += 1
-        with open(NewGame.save_file_path, "w") as f:
+        with open(Game.save_file_path, "w") as f:
             writings = [char_attrs + "\n", inventory + "\n", str(Game.difficulty) + " ", str(Game.lives) + "\n",
                         str(Game.level) + "\n"]
             f.writelines(writings)
@@ -144,7 +213,39 @@ class Helper:  # s2
     @staticmethod
     def gameplay(story, choice1, choice2, choice3, outcome1, outcome2, outcome3,
                  func1=None, param1=None, func2=None, param2=None, func3=None, param3=None):  # s3
-        """Trying to make this reusable as possible!!!"""
+        """
+        The core gameplay of the game.
+
+        ***
+
+        story:param -> setting of the current context.
+
+        choice1:param -> first option for the user to choose.
+
+        choice2:param -> second option for the user to choose.
+
+        choice3:param -> third option for the user to choose.
+
+        outcome1:param -> outcome of the first option.
+
+        outcome2:param -> outcome of the second option.
+
+        outcome3:param -> outcome of the third option.
+
+        func1:param -> optional function to return. E.g: Helper.add_item
+
+        param1:param -> optional argument for the first function.
+
+        ...
+
+        PSi: The parameter functions are to be invoked within the gameplay method. So, it shouldn't be invoked
+        immediately. Also, the reason for giving the argument for these functions separately is the same as
+        pre-mentioned factor.
+
+        PSii: When one wants to move to another setting, pass a print function without calling it. If one don't
+        want to move to another setting don't pass any function and remain in the loop.
+
+        """
         input_message = f"""What will you do? Type the number of the option or type '/h' to show help.
 
 1- {choice1}
@@ -197,9 +298,11 @@ class Helper:  # s2
 
 
 class Levels:  # s3
+    """Implements the gameplay on different levels."""
 
     @staticmethod
-    def core_game():
+    def core_game_loop():
+        """Contains the core game loop of the game and invokes the functions according to the level."""
         while True:
             if Game.lives > 0:
                 if Game.level == 1:
@@ -215,6 +318,7 @@ class Levels:  # s3
 
     @staticmethod
     def level1():
+        """The gameplay for the first level. Breaks the loop if the char isn't alive."""
         while True:
             cprint("Day 1", "yellow", attrs=["bold", "underline"])
             Game.isAlive = True
@@ -251,6 +355,7 @@ You saw a light coming from the inner cave and you follow it.""",
 
     @staticmethod
     def level2():
+        """The gameplay for the second level. Breaks the loop if the char isn't alive."""
         while True:
             Helper.load_inventory()
             cprint("Day 2", "yellow", attrs=["bold", "underline"])
@@ -285,7 +390,7 @@ Congratulations! You've conquered the mountain!""" if 'snack' not in Game.invent
 
 
 class Menu:  # s1, in the s1 ,the functions should be passed, they are implemeted in s2
-
+    """Menu class to print the options and welcome message."""
     options = """
     
 1- Press key '1' or type 'start' to start a new game
@@ -297,11 +402,13 @@ class Menu:  # s1, in the s1 ,the functions should be passed, they are implemete
 
     @staticmethod
     def welcome():
+        """Prints the welcome message and the title of the game."""
         title = "Journey to Mount Qaf"
         print(colored(f"\n***Welcome to the {title}***", "yellow", attrs=["bold"]),
               colored(Menu.options, "magenta", attrs=["bold"]))
 
     def new_game(self):
+        """Invokes the NewGame.create_new_game and Levels.core_game_loop functions."""
         cprint("Starting a new game...", "blue")  # s1
         message = colored("Enter a user name to save your progress or type '/b' to go back => ", "magenta",
                           attrs=["bold"])  # s2
@@ -312,17 +419,19 @@ class Menu:  # s1, in the s1 ,the functions should be passed, they are implemete
                 break
             else:
                 new_game.create_new_game()
-                Levels.core_game()
+                Levels.core_game_loop()
             break  # go back to menu
 
     def load_game(self):
+        """Checks to see if a save file exist and reads the file content to assign the Game class attributes."""
         try:  # s4
             saves = list(map(lambda x: x.replace(".txt", ""), listdir('./gameSaves/')))  # get rid of .txt
             cprint("Type your username from the list:", "yellow")
             for save in saves:
                 cprint(save, "magenta", attrs=["bold"])
             path = input(colored("=> ", "green", attrs=["bold"]))
-            with open(f'./gameSaves/{path}.txt') as f:
+            Game.save_file_path = f'./gameSaves/{path}.txt'
+            with open(Game.save_file_path) as f:
                 cprint("Loading your progress...", "blue")  # s1 #s3
                 content = f.readlines()
 
@@ -341,7 +450,7 @@ class Menu:  # s1, in the s1 ,the functions should be passed, they are implemete
                 level = int(content[3].strip())
                 Game.level = level
 
-                Levels.core_game()
+                Levels.core_game_loop()
 
         except (TypeError, IndexError, FileNotFoundError):
             cprint("No save data found!", "red", attrs=["bold"])
