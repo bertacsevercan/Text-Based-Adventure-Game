@@ -106,6 +106,20 @@ class Helper:  # s2
         Game.inventory_dict.pop(item)
 
     @staticmethod
+    def show_char():
+        char = ", ".join(list(Game.char_att_dict.values()))
+        lives = Game.lives
+        print(f"Your character: {char}.\nLife count: {lives}")
+
+    @staticmethod
+    def show_help():
+        print("Type the number of the option you want to choose.\n" +
+              "Commands you can use:\n/i => Shows inventory.\n" +
+              "/q => Exits the game.\n" +
+              "/c => Shows character traits.\n" +
+              "/h => Shows help.")
+
+    @staticmethod
     def load_inventory():
         path = './gameSaves/' + listdir('./gameSaves/')[0]
         with open(path, "r") as f:
@@ -119,10 +133,10 @@ class Helper:  # s2
     def save_game():  # s4
         print("You've found a safe spot to rest. Saving your progress...")
         inventory = ", ".join(list(Game.inventory_dict.values()))
-        char_atts = ", ".join(list(Game.char_att_dict.values()))
+        char_attrs = ", ".join(list(Game.char_att_dict.values()))
         Game.level += 1
         with open(NewGame.save_file_path, "w") as f:
-            writings = [char_atts + "\n", inventory + "\n", str(Game.difficulty) + " ", str(Game.lives) + "\n",
+            writings = [char_attrs + "\n", inventory + "\n", str(Game.difficulty) + " ", str(Game.lives) + "\n",
                         str(Game.level) + "\n"]
             f.writelines(writings)
 
@@ -131,7 +145,7 @@ class Helper:  # s2
                  func1=None, param1=None, func2=None, param2=None, func3=None, param3=None):  # s3
         """Trying to make this reusable as possible!!!"""
         input_message = f"""{story}
-What will you do? Type the number of the option or type '/i' to check your inventory.
+What will you do? Type the number of the option or type '/h' to show help.
 
 1- {choice1}
 2- {choice2}
@@ -163,6 +177,10 @@ What will you do? Type the number of the option or type '/i' to check your inven
                     return func3(param3)
                 else:
                     continue
+            elif action_input.lower() == "/h":
+                Helper.show_help()
+            elif action_input.lower() == "/c":
+                Helper.show_char()
             elif action_input.lower() == "/i":
                 Helper.show_inventory()
             elif action_input.lower() == "/q":
@@ -212,7 +230,7 @@ class Levels:  # s3
                             """The bird has red wings with blue stripes on. It has a long neck.
 Inside its beak it has sharp teeth and its eyes are following you, interested.""",
                             f"""You take out your {Game.inventory_dict['weapon']} and attack the bird.
-It stretches its head and chops your head off.""", Helper.remove_item if "key" in Game.inventory_dict
+It stretches its head to attack you. It's too fast...""", Helper.remove_item if "key" in Game.inventory_dict
                             else None, "key", func3=Helper.decrease_lives)
             if not Game.isAlive:
                 break
