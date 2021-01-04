@@ -1,4 +1,4 @@
-User, Human, Female
-Apple, Gun, Rocket
-Hard 1
+John, Human, Male
+Apple, Sword, Rope
+Medium 3
 2

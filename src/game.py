@@ -462,6 +462,7 @@ class Menu:  # s1, in the s1 ,the functions should be passed, they are implemete
 # s1
 game_menu = Menu(None)
 
+
 while True:  # s1
     Menu.welcome()
 
