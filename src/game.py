@@ -92,7 +92,7 @@ class NewGame:  # s2
 
         Assigns the key pairs for Game.inventory_dict.
 
-        Assigns the difficulty and live attributes in the Game.
+        Assigns the difficulty and lives attributes in the Game.
         """
         Game.save_file_path = f"./gameSaves/{self.username_input}.txt"
 
@@ -161,7 +161,8 @@ class Helper:  # s2
 
         item:param -> name of the key and value to be added.
         """
-        Game.inventory_dict[item] = item
+        Game.inventory_dict[item] = item.title()
+        cprint("A new item has been added to your inventory: " + Game.inventory_dict[item], "red", attrs=["bold"])
 
     @staticmethod
     def remove_item(item):
@@ -170,7 +171,9 @@ class Helper:  # s2
 
         item:param -> name of the key to be removed.
         """
+        cprint("An item has been removed from your inventory: " + Game.inventory_dict[item], "red", attrs=["bold"])
         Game.inventory_dict.pop(item)
+
 
     @staticmethod
     def show_char():
@@ -414,7 +417,7 @@ class Menu:  # s1, in the s1 ,the functions should be passed, they are implemete
                           attrs=["bold"])  # s2
         new_game = NewGame(input(message))
         while True:
-            if new_game.username_input == "/b":
+            if new_game.username_input.lower() == "/b":
                 cprint("Going back to menu...", "blue")
                 break
             else:
