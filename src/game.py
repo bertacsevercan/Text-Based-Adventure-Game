@@ -365,7 +365,7 @@ You saw a light coming from the inner cave and you follow it.""",
                             f"""The dragon smacks its lips and shows its tongue. 
 It looks hungry, you remember you have {Game.inventory_dict['snack'] if 'snack' in Game.inventory_dict else "no snack."}.""",
                             "\n***You get closer to the dragon slowly and with one swift blow, it's dead.",
-                            f"""You take out {Game.inventory_dict['snack'] if 'snack' in Game.inventory_dict else "no snack."} from your bag and give it to the dragon.
+f"""You take out {Game.inventory_dict['snack'] if 'snack' in Game.inventory_dict else "no snack."} from your bag and give it to the dragon.
 The dragon loves it and flies away happily.""", func2=print, func3=Helper.remove_item, param3="snack")
 
             Helper.gameplay(story_list[4], choices[12], choices[13], choices[14],
@@ -471,6 +471,7 @@ while True:  # s1
         game_menu.load_game()
 
     elif game_menu.user_input == "3" or game_menu.user_input.lower() == "quit":
+        cprint("Goodbye!", "blue")
         break
 
     else:
