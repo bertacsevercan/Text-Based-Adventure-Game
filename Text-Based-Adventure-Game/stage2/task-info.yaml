@@ -1,0 +1,6 @@
+type: edu
+files:
+- name: txt-based-adv-game/game.py
+  visible: true
+- name: tests.py
+  visible: true
