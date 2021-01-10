@@ -24,7 +24,7 @@ class NewGame:
     def __init__(self, username_input):
         self.username_input = username_input
 
-    def create_new_game(self):  # s2
+    def create_new_game(self):
 
         Game.save_file_path = f"./gameSaves/{self.username_input}.txt"
 
@@ -86,7 +86,7 @@ class Menu:
     def new_game(self):
         cprint("Starting a new game...", "blue")
         message = colored("Enter a user name to save your progress or type '/b' to go back => ", "magenta",
-                          attrs=["bold"])  # s2
+                          attrs=["bold"])
         new_game = NewGame(input(message))
         while True:
             if new_game.username_input.lower() == "/b":

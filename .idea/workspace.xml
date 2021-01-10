@@ -2,10 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="71c7dc97-5c21-47f5-810b-c5296769a534" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/story/outcomes.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/story/choices.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/story/outcomes.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/story/story.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Text-Based-Adventure-Game/stage1/tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/Text-Based-Adventure-Game/stage1/tests.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Text-Based-Adventure-Game/stage2/tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/Text-Based-Adventure-Game/stage2/tests.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Text-Based-Adventure-Game/stage2/txt-based-adv-game/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/Text-Based-Adventure-Game/stage2/txt-based-adv-game/game.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Text-Based-Adventure-Game/stage3/tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/Text-Based-Adventure-Game/stage3/tests.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Text-Based-Adventure-Game/stage3/txt-based-adv-game/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/Text-Based-Adventure-Game/stage3/txt-based-adv-game/game.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/story/choices.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/story/choices.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/story/story.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/story/story.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,30 +37,20 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$USER_HOME$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="restartRequiresConfirmation" value="false" />
   </component>
-  <component name="RunManager" selected="Run Study Tests.Text-Based-Adventure-Game/stage2">
-    <configuration name="game (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Text-Based-Adventure-Game" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Text-Based-Adventure-Game/stage1/txt-based-adv-game" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Text-Based-Adventure-Game/stage1/txt-based-adv-game/game.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/Text-Based-Adventure-Game/stage3/txt-based-adv-game" />
+      <recent name="$PROJECT_DIR$/Text-Based-Adventure-Game/stage3" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Run Study Tests.Text-Based-Adventure-Game/stage3">
     <configuration name="game (2)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Text-Based-Adventure-Game" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -76,7 +72,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="game" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="game (3)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Text-Based-Adventure-Game" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -84,11 +80,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Text-Based-Adventure-Game/stage3/txt-based-adv-game" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/game.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Text-Based-Adventure-Game/stage3/txt-based-adv-game/game.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -141,13 +137,35 @@
       <option name="studyTest" value="$PROJECT_DIR$/Text-Based-Adventure-Game/stage2/tests.py" />
       <method v="2" />
     </configuration>
+    <configuration name="Text-Based-Adventure-Game/stage3" type="ccruntests" factoryName="Run Study Tests" temporary="true">
+      <module name="Text-Based-Adventure-Game" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Text-Based-Adventure-Game/stage3/tests.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <option name="studyTest" value="$PROJECT_DIR$/Text-Based-Adventure-Game/stage3/tests.py" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Run Study Tests.Text-Based-Adventure-Game/stage3" />
         <item itemvalue="Run Study Tests.Text-Based-Adventure-Game/stage2" />
+        <item itemvalue="Python.game (3)" />
         <item itemvalue="Python.game (2)" />
         <item itemvalue="Run Study Tests.Text-Based-Adventure-Game/stage1" />
-        <item itemvalue="Python.game (1)" />
-        <item itemvalue="Python.game" />
       </list>
     </recent_temporary>
   </component>
