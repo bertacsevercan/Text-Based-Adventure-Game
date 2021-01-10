@@ -1,25 +1,26 @@
 from termcolor import cprint, colored
 from re import sub
+import os
 
-
+file_path = (os.path.dirname(__file__))
+print(file_path)
 story_container = ""
-with open("../../../story/story.txt") as story_f:
+with open(file_path + "/story/story.txt") as story_f:
     for line in story_f:
         story_container += line
 story_list = story_container.split("+")
 
 choices = []
-with open("../../../story/choices.txt") as choices_f:
+with open(file_path + "/story/choices.txt") as choices_f:
     for line in choices_f:
         choices.append(sub(r"{.*}", "", line.strip()))
 
 outcome_container = ""
-with open("../../../story/outcomes.txt") as outcomes_f:
+with open(file_path + "/story/outcomes.txt") as outcomes_f:
     for line in outcomes_f:
         outcome_container += sub(r"({.*})|(\(.*\))", "", line.strip())
 outcomes = outcome_container.split("*")
 
-print(",".join({"a" : "b", "b": "c"}.values()).split(","))
 
 def warning_unknown_input():
     cprint("Unknown input! Please enter a valid one.", "red")

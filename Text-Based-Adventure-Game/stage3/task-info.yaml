@@ -4,3 +4,9 @@ files:
   visible: true
 - name: tests.py
   visible: true
+- name: txt-based-adv-game/story/story.txt
+  visible: true
+- name: txt-based-adv-game/story/choices.txt
+  visible: true
+- name: txt-based-adv-game/story/outcomes.txt
+  visible: true

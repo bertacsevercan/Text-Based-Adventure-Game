@@ -14,6 +14,8 @@ class TextBasedAdventureGameTest(StageTest):
     weapon = "sword"
     tool = "rope"
     difficulty = "easy"
+    choices = ["1", "2", "3"]
+    player_choice = choice(choices)
 
     def generate(self) -> [TestCase]:
         return [
@@ -29,7 +31,7 @@ class TextBasedAdventureGameTest(StageTest):
                             self.tool, self.difficulty, self.check_game_state, "3"]),
             TestCase(stdin=["1", "/b", self.check_go_back]),
             TestCase(stdin=["1", self.check_username, self.name, self.species, self.gender, self.snack, self.weapon,
-                            self.tool, self.difficulty, "3", (-1, self.check_gameplay)]),
+                            self.tool, self.difficulty, self.player_choice, (-1, self.check_gameplay)]),
             TestCase(stdin="3"),
             TestCase(stdin="quIt")
         ]
@@ -69,10 +71,9 @@ class TextBasedAdventureGameTest(StageTest):
         return "3"
 
     def check_gameplay(self, output):
-        choices = ["1", "2", "3"]
-        player_choice = choice(choices)
+        choices = self.choices
         if "what will you do? type the number of the option or type '/h' to show help." not in output.lower():
-            choices.pop(choices.index(player_choice))
+            choices.pop(choices.index(self.player_choice))
             return choice(choices)
 
 
