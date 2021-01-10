@@ -1,6 +1,6 @@
 from typing import Any
-from hstest.stage_test import StageTest, TestPassed, WrongAnswer
-from hstest.test_case import TestCase, SimpleTestCase
+from hstest.stage_test import StageTest
+from hstest.test_case import TestCase
 from hstest.check_result import CheckResult
 
 
@@ -28,12 +28,6 @@ class TextBasedAdventureGameTest(StageTest):
         if "Starting a new game..." in output or "Loading your progress..." in output:
             return CheckResult.correct()
         return CheckResult.wrong("Your program didn't output correct message.")
-
-    def check_exit(self, output):
-        if "Goodbye!" in output:
-            raise TestPassed()
-        else:
-            raise WrongAnswer("Your program didn't print a goodbye message.")
 
     def check_unknown(self, output):
         if "Unknown input! Please enter a valid one." in output:
