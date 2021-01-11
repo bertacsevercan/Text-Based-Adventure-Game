@@ -3,7 +3,7 @@ from re import sub
 import os
 
 file_path = (os.path.dirname(__file__))
-print(file_path)
+
 story_container = ""
 with open(file_path + "/story/story.txt") as story_f:
     for line in story_f:

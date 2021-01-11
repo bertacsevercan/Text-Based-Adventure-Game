@@ -71,10 +71,21 @@ class TextBasedAdventureGameTest(StageTest):
         return "3"
 
     def check_gameplay(self, output):
-        choices = self.choices
+        choices = self.choices.copy()
+        if "level 2" in output.lower() or "game over" in output.lower():
+            return CheckResult.correct()
+
         if "what will you do? type the number of the option or type '/h' to show help." not in output.lower():
             choices.pop(choices.index(self.player_choice))
-            return choice(choices)
+            random_choice = choice(choices)
+            self.player_choice = random_choice
+            return random_choice
+
+        else:
+            random_choice = choice(choices)
+            self.player_choice = random_choice
+            return random_choice
+
 
 
 

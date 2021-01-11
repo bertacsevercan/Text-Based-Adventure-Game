@@ -38,12 +38,12 @@
       <recent name="$PROJECT_DIR$" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/Text-Based-Adventure-Game/stage3/txt-based-adv-game" />
+      <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/Text-Based-Adventure-Game/stage3" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.game (3)">
+  <component name="RunManager" selected="Run Study Tests.Text-Based-Adventure-Game/stage3">
     <configuration name="game (2)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Text-Based-Adventure-Game" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -154,8 +154,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.game (3)" />
         <item itemvalue="Run Study Tests.Text-Based-Adventure-Game/stage3" />
+        <item itemvalue="Python.game (3)" />
         <item itemvalue="Run Study Tests.Text-Based-Adventure-Game/stage2" />
         <item itemvalue="Python.game (2)" />
         <item itemvalue="Run Study Tests.Text-Based-Adventure-Game/stage1" />
