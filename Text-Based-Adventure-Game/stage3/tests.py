@@ -14,6 +14,7 @@ class TextBasedAdventureGameTest(StageTest):
     weapon = "sword"
     tool = "rope"
     difficulty = "easy"
+    lives = "5"
     choices = ["1", "2", "3"]
     player_choice = choice(choices)
 
@@ -32,6 +33,14 @@ class TextBasedAdventureGameTest(StageTest):
             TestCase(stdin=["1", "/b", self.check_go_back]),
             TestCase(stdin=["1", self.check_username, self.name, self.species, self.gender, self.snack, self.weapon,
                             self.tool, self.difficulty, self.player_choice, (-1, self.check_gameplay)]),
+            TestCase(stdin=["1", self.check_username, self.name, self.species, self.gender, self.snack, self.weapon,
+                            self.tool, self.difficulty, "/i", self.check_inventory]),
+            TestCase(stdin=["1", self.check_username, self.name, self.species, self.gender, self.snack, self.weapon,
+                            self.tool, self.difficulty, "/c", self.check_char]),
+            TestCase(stdin=["1", self.check_username, self.name, self.species, self.gender, self.snack, self.weapon,
+                            self.tool, self.difficulty, "/h", self.check_help]),
+            TestCase(stdin=["1", self.check_username, self.name, self.species, self.gender, self.snack, self.weapon,
+                            self.tool, self.difficulty, "/q", (2, self.check_quit)]),
             TestCase(stdin="3"),
             TestCase(stdin="quIt")
         ]
@@ -85,6 +94,40 @@ class TextBasedAdventureGameTest(StageTest):
             random_choice = choice(choices)
             self.player_choice = random_choice
             return random_choice
+
+    def check_inventory(self, output):
+        inventory = [self.snack, self.weapon, self.tool]
+        in_inventory = all([item in output.lower() for item in inventory])
+
+        if "inventory" not in output.lower() or not in_inventory:
+            return CheckResult.wrong("Your program didn't output correct inventory content.")
+        else:
+            return CheckResult.correct()
+
+    def check_char(self, output):
+        char = [self.name, self.species, self.gender, self.lives]
+        in_char = all([ch in output.lower() for ch in char])
+        if "character" not in output.lower() or not in_char or "life count" not in output.lower():
+            return CheckResult.wrong("Your program didn't output correct character traits.")
+        else:
+            return CheckResult.correct()
+
+    def check_help(self, output):
+        message = "type the number of the option you want to choose.\n" + "commands you can use:\n/i => shows inventory.\n" \
+                  + "/q => exits the game.\n" + "/c => shows character traits.\n" + "/h => shows help."
+        if message not in output.lower():
+            return CheckResult.wrong("Your program didn't output the correct help message.")
+        else:
+            return CheckResult.correct()
+
+    def check_quit(self, output):
+        if "you sure you want to quit the game? y/n " in output.lower():
+            return "y"
+        elif "goodbye!" in output.lower():
+            return CheckResult.correct()
+        else:
+            return CheckResult.wrong("You didn't ask to quit the game.")
+
 
 
 
