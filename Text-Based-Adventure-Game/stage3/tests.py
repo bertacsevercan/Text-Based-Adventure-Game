@@ -41,6 +41,8 @@ class TextBasedAdventureGameTest(StageTest):
                             self.tool, self.difficulty, "/h", self.check_help]),
             TestCase(stdin=["1", self.check_username, self.name, self.species, self.gender, self.snack, self.weapon,
                             self.tool, self.difficulty, "/q", (2, self.check_quit)]),
+            TestCase(stdin=["1", self.check_username, self.name, self.species, self.gender, self.snack, self.weapon,
+                            self.tool, self.difficulty, "4", self.check_unknown]),
             TestCase(stdin="3"),
             TestCase(stdin="quIt")
         ]
@@ -57,7 +59,7 @@ class TextBasedAdventureGameTest(StageTest):
 
     def check_unknown(self, output):
         if "unknown input! please enter a valid one." in output.lower():
-            return "3"
+            return CheckResult.correct()
         return CheckResult.wrong("Your program couldn't process unknown input.")
 
     def check_username(self, output):
@@ -83,6 +85,9 @@ class TextBasedAdventureGameTest(StageTest):
         choices = self.choices.copy()
         if "level 2" in output.lower() or "game over" in output.lower():
             return CheckResult.correct()
+
+        if "you died" in output.lower() and "level 1" not in output.lower():
+            return CheckResult.wrong("Your program didn't start from the beginning of the level")
 
         if "what will you do? type the number of the option or type '/h' to show help." not in output.lower():
             choices.pop(choices.index(self.player_choice))
