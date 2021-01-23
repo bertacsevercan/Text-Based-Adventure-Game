@@ -37,8 +37,8 @@ class Game:
 
 
 class NewGame:
-    char_att_list = ["1- Name ", "2- Species ", "3- Gender "]
-    inventory_list = ["1- Favourite Snack ", "2- A weapon for the journey ", "3- A traversal tool "]
+    char_att_list = ["1- Name =", "2- Species =", "3- Gender ="]
+    inventory_list = ["1- Favourite Snack =", "2- A weapon for the journey =", "3- A traversal tool ="]
     char_dict_keys = ["name", "species", "gender"]
     inventory_dict_keys = ["snack", "weapon", "tool"]
 
@@ -46,8 +46,6 @@ class NewGame:
         self.username_input = username_input
 
     def create_new_game(self):
-
-        Game.save_file_path = f"./gameSaves/{self.username_input}.txt"
 
         cprint("Create your character:", "yellow", attrs=["bold", "underline"])
 

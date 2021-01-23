@@ -37,8 +37,8 @@ class Game:
 
 
 class NewGame:
-    char_att_list = ["1- Name => ", "2- Species => ", "3- Gender => "]
-    inventory_list = ["1- Favourite Snack => ", "2- A weapon for the journey => ", "3- A traversal tool => "]
+    char_att_list = ["1- Name =", "2- Species =", "3- Gender ="]
+    inventory_list = ["1- Favourite Snack =", "2- A weapon for the journey =", "3- A traversal tool ="]
     char_dict_keys = ["name", "species", "gender"]
     inventory_dict_keys = ["snack", "weapon", "tool"]
 
@@ -130,22 +130,22 @@ class Helper:
                "/c => Shows character traits.\n" +
                "/h => Shows help.", "blue")
 
-    @staticmethod
-    def game_won():
-        print("Congratulations! You beat the game!")
-        exit()
+    # @staticmethod
+    # def game_won():
+    #     print("Congratulations! You beat the game!")
+    #     exit()
+
+    # @staticmethod
+    # def load_inventory():
+    #     with open(Game.save_file_path, "r") as f:
+    #         content = f.readlines()
+    #         inventory = content[1].strip().split(",")
+    #
+    #         for i in range(len(inventory)):
+    #             Game.inventory_dict[NewGame.inventory_dict_keys[i]] = inventory[i]
 
     @staticmethod
-    def load_inventory():
-        with open(Game.save_file_path, "r") as f:
-            content = f.readlines()
-            inventory = content[1].strip().split(",")
-
-            for i in range(len(inventory)):
-                Game.inventory_dict[NewGame.inventory_dict_keys[i]] = inventory[i]
-
-    @staticmethod
-    def save_game():  # s4
+    def save_game():
         cprint("You've found a safe spot to rest. Saving your progress...", "yellow", attrs=["bold"])
         inventory = ", ".join(list(Game.inventory_dict.values()))
         char_attrs = ", ".join(list(Game.char_att_dict.values()))
@@ -260,31 +260,34 @@ class Levels:
 
     @staticmethod
     def level2():
-        while True:
-
-            cprint(story_list[4], "yellow", attrs=["bold", "underline"])
-            Game.isAlive = True
-
-            Helper.gameplay(story_list[5], choices[9], f"{choices[10]} {Game.inventory_dict['weapon']}.", choices[11],
-                            outcomes[10],
-                            outcomes[11],
-                            outcomes[12], func2=print, func3=Helper.remove_item, param3="snack")
-
-            Helper.gameplay(story_list[6], choices[12], choices[13], choices[14],
-                            outcomes[13], outcomes[14], outcomes[15],
-                            Helper.increase_lives, func2=Helper.decrease_lives, func3=print)
-            if not Game.isAlive:
-                break
-
-            Helper.gameplay(story_list[7], choices[15], f"{choices[16]} {Game.inventory_dict['weapon']}", choices[17],
-                            outcomes[16],
-                            outcomes[17],
-                            outcomes[18] if 'snack' not in Game.inventory_dict else
-                            outcomes[19],
-                            Helper.decrease_lives, func2=Helper.decrease_lives,
-                            func3=Helper.game_won if 'snack' not in Game.inventory_dict else Helper.decrease_lives)
-            if not Game.isAlive:
-                break
+        cprint(story_list[4], "yellow", attrs=["bold", "underline"])
+        print("Goodbye!")
+        exit()
+        # while True:
+        #
+        #     cprint(story_list[4], "yellow", attrs=["bold", "underline"])
+        #     Game.isAlive = True
+        #
+        #     Helper.gameplay(story_list[5], choices[9], f"{choices[10]} {Game.inventory_dict['weapon']}.", choices[11],
+        #                     outcomes[10],
+        #                     outcomes[11],
+        #                     outcomes[12], func2=print, func3=Helper.remove_item, param3="snack")
+        #
+        #     Helper.gameplay(story_list[6], choices[12], choices[13], choices[14],
+        #                     outcomes[13], outcomes[14], outcomes[15],
+        #                     Helper.increase_lives, func2=Helper.decrease_lives, func3=print)
+        #     if not Game.isAlive:
+        #         break
+        #
+        #     Helper.gameplay(story_list[7], choices[15], f"{choices[16]} {Game.inventory_dict['weapon']}", choices[17],
+        #                     outcomes[16],
+        #                     outcomes[17],
+        #                     outcomes[18] if 'snack' not in Game.inventory_dict else
+        #                     outcomes[19],
+        #                     Helper.decrease_lives, func2=Helper.decrease_lives,
+        #                     func3=Helper.game_won if 'snack' not in Game.inventory_dict else Helper.decrease_lives)
+        #     if not Game.isAlive:
+        #         break
 
 
 class Menu:
