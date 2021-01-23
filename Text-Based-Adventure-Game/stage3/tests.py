@@ -31,7 +31,7 @@ class TextBasedAdventureGameTest(StageTest):
                             self.tool, self.difficulty, self.check_game_state, "3"]),
             TestCase(stdin=["1", "/b", self.check_go_back]),
             TestCase(stdin=["1", self.check_username, self.name, self.species, self.gender, self.snack, self.weapon,
-                            self.tool, self.difficulty, (-1, self.check_gameplay)]),
+                            self.tool, self.difficulty, (-1, self.check_level1)]),
             TestCase(stdin=["1", self.check_username, self.name, self.species, self.gender, self.snack, self.weapon,
                             self.tool, self.difficulty, "/i", self.check_inventory]),
             TestCase(stdin=["1", self.check_username, self.name, self.species, self.gender, self.snack, self.weapon,
@@ -80,7 +80,7 @@ class TextBasedAdventureGameTest(StageTest):
             CheckResult.wrong("You didn't output the correct message when going back to menu.")
         return "3"
 
-    def check_gameplay(self, output):
+    def check_level1(self, output):
         choices = ["1", "2", "3"]
         random_choice = choice(choices)
         if "level 2" in output.lower() or "game over" in output.lower():
