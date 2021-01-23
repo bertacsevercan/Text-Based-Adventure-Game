@@ -37,8 +37,8 @@ class Game:
 
 
 class NewGame:
-    char_att_list = ["1- Name => ", "2- Species => ", "3- Gender => "]
-    inventory_list = ["1- Favourite Snack => ", "2- A weapon for the journey => ", "3- A traversal tool => "]
+    char_att_list = ["1- Name ", "2- Species ", "3- Gender "]
+    inventory_list = ["1- Favourite Snack ", "2- A weapon for the journey ", "3- A traversal tool "]
     char_dict_keys = ["name", "species", "gender"]
     inventory_dict_keys = ["snack", "weapon", "tool"]
 
@@ -129,23 +129,10 @@ class Helper:
                "/q => Exits the game.\n" +
                "/c => Shows character traits.\n" +
                "/h => Shows help.", "blue")
+
     @staticmethod
     def save_game():
         Game.level += 1
-
-    @staticmethod
-    def game_won():
-        print("Congratulations! You beat the game!")
-        exit()
-
-    @staticmethod
-    def load_inventory():
-        with open(Game.save_file_path, "r") as f:
-            content = f.readlines()
-            inventory = content[1].strip().split(",")
-
-            for i in range(len(inventory)):
-                Game.inventory_dict[NewGame.inventory_dict_keys[i]] = inventory[i]
 
     @staticmethod
     def gameplay(story, choice1, choice2, choice3, outcome1, outcome2, outcome3,
@@ -159,7 +146,7 @@ class Helper:
         cprint(story, "cyan", attrs=["bold"])
         cprint(input_message, "magenta", attrs=["bold"])
         while True:
-            action_input = input(colored("=> ", "green", attrs=["bold"]))
+            action_input = input(colored("=", "green", attrs=["bold"]))
             if action_input == "1":
                 cprint(outcome1, "green", attrs=["bold"])
                 if func1 is not None:
@@ -201,12 +188,11 @@ class Helper:
             else:
                 warning_unknown_input()
 
-class Levels:  # s3
-    """Implements the gameplay on different levels."""
+
+class Levels:
 
     @staticmethod
     def core_game_loop():
-        """Contains the core game loop of the game and invokes the functions according to the level."""
         while True:
             if Game.lives > 0:
                 if Game.level == 1:
@@ -222,7 +208,6 @@ class Levels:  # s3
 
     @staticmethod
     def level1():
-        """The gameplay for the first level. Breaks the loop if the char isn't alive."""
         while True:
             cprint(story_list[0], "yellow", attrs=["bold", "underline"])
             Game.isAlive = True
@@ -254,32 +239,9 @@ class Levels:  # s3
 
     @staticmethod
     def level2():
-        """The gameplay for the second level. Breaks the loop if the char isn't alive."""
-        while True:
-
-            cprint(story_list[4], "yellow", attrs=["bold", "underline"])
-            Game.isAlive = True
-
-            Helper.gameplay(story_list[5], choices[9], f"{choices[10]} {Game.inventory_dict['weapon']}.", choices[11],
-                            outcomes[10],
-                            outcomes[11],
-outcomes[12], func2=print, func3=Helper.remove_item, param3="snack")
-
-            Helper.gameplay(story_list[6], choices[12], choices[13], choices[14],
-                            outcomes[13], outcomes[14], outcomes[15],
-                            Helper.increase_lives, func2=Helper.decrease_lives, func3=print)
-            if not Game.isAlive:
-                break
-
-            Helper.gameplay(story_list[7], choices[15], f"{choices[16]} {Game.inventory_dict['weapon']}", choices[17],
-                            outcomes[16],
-                            outcomes[17],
-                            outcomes[18] if 'snack' not in Game.inventory_dict else
-                            outcomes[19],
-                            Helper.decrease_lives, func2=Helper.decrease_lives,
-                            func3=Helper.game_won if 'snack' not in Game.inventory_dict else Helper.decrease_lives)
-            if not Game.isAlive:
-                break
+        cprint(story_list[4], "yellow", attrs=["bold", "underline"])
+        print("Goodbye!")
+        exit()
 
 
 class Menu:
@@ -300,7 +262,7 @@ class Menu:
 
     def new_game(self):
         cprint("Starting a new game...", "blue")
-        message = colored("Enter a user name to save your progress or type '/b' to go back => ", "magenta",
+        message = colored("Enter a user name to save your progress or type '/b' to go back ", "magenta",
                           attrs=["bold"])
         new_game = NewGame(input(message))
         while True:

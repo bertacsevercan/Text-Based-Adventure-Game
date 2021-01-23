@@ -15,8 +15,6 @@ class TextBasedAdventureGameTest(StageTest):
     tool = "rope"
     difficulty = "easy"
     lives = "5"
-    choices = ["1", "2", "3"]
-    player_choice = choice(choices)
 
     def generate(self) -> [TestCase]:
         return [
@@ -32,7 +30,7 @@ class TextBasedAdventureGameTest(StageTest):
                             self.tool, self.difficulty, self.check_game_state, "3"]),
             TestCase(stdin=["1", "/b", self.check_go_back]),
             TestCase(stdin=["1", self.check_username, self.name, self.species, self.gender, self.snack, self.weapon,
-                            self.tool, self.difficulty, self.player_choice, (-1, self.check_gameplay)]),
+                            self.tool, self.difficulty, (-1, self.check_gameplay)]),
             TestCase(stdin=["1", self.check_username, self.name, self.species, self.gender, self.snack, self.weapon,
                             self.tool, self.difficulty, "/i", self.check_inventory]),
             TestCase(stdin=["1", self.check_username, self.name, self.species, self.gender, self.snack, self.weapon,
@@ -82,22 +80,20 @@ class TextBasedAdventureGameTest(StageTest):
         return "3"
 
     def check_gameplay(self, output):
-        choices = self.choices.copy()
+        choices = ["1", "2", "3"]
+        random_choice = choice(choices)
         if "level 2" in output.lower() or "game over" in output.lower():
             return CheckResult.correct()
 
         if "you died" in output.lower() and "level 1" not in output.lower():
-            return CheckResult.wrong("Your program didn't start from the beginning of the level")
+            return CheckResult.wrong("Your program didn't start from the beginning of the level.")
 
         if "what will you do? type the number of the option or type '/h' to show help." not in output.lower():
-            choices.pop(choices.index(self.player_choice))
-            random_choice = choice(choices)
-            self.player_choice = random_choice
-            return random_choice
+            choices.pop(choices.index(random_choice))
+            new_random_choice = choice(choices)
+            return new_random_choice
 
         else:
-            random_choice = choice(choices)
-            self.player_choice = random_choice
             return random_choice
 
     def check_inventory(self, output):
@@ -132,10 +128,6 @@ class TextBasedAdventureGameTest(StageTest):
             return CheckResult.correct()
         else:
             return CheckResult.wrong("You didn't ask to quit the game.")
-
-
-
-
 
     def check(self, reply: str, attach: Any) -> CheckResult:
         if "goodbye!" in reply.lower():
