@@ -15,6 +15,7 @@ class TextBasedAdventureGameTest(StageTest):
     tool = "rope"
     difficulty = "easy"
     lives = "5"
+    picked_choice = ""
 
     def generate(self) -> [TestCase]:
         return [
@@ -89,12 +90,13 @@ class TextBasedAdventureGameTest(StageTest):
             return CheckResult.wrong("Your program didn't start from the beginning of the level.")
 
         if "what will you do? type the number of the option or type '/h' to show help." not in output.lower():
-            choices.pop(choices.index(random_choice))
-            new_random_choice = choice(choices)
-            return new_random_choice
+            choices.pop(choices.index(self.picked_choice))
+            self.picked_choice = choice(choices)
+            return self.picked_choice
 
         else:
-            return random_choice
+            self.picked_choice = random_choice
+            return self.picked_choice
 
     def check_inventory(self, output):
         inventory = [self.snack, self.weapon, self.tool]
