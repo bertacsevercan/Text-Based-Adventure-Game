@@ -72,4 +72,4 @@ class TextBasedAdventureGameTest(StageTest):
 
 
 if __name__ == '__main__':
-    TextBasedAdventureGameTest('txt-based-adv-game.game').run_tests()
+    TextBasedAdventureGameTest('game.game').run_tests()

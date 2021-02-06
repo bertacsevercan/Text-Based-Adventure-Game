@@ -1,12 +1,12 @@
 type: edu
 files:
-- name: txt-based-adv-game/game.py
+- name: game/game.py
   visible: true
 - name: tests.py
   visible: true
-- name: txt-based-adv-game/story/story.txt
+- name: game/story/story.txt
   visible: true
-- name: txt-based-adv-game/story/choices.txt
+- name: game/story/choices.txt
   visible: true
-- name: txt-based-adv-game/story/outcomes.txt
+- name: game/story/outcomes.txt
   visible: true
