@@ -47,7 +47,7 @@ class NewGame:
 
     def create_new_game(self):
 
-        Game.save_file_path = f"./saves/{self.username_input}.txt"
+        Game.save_file_path = f"{file_path}/saves/{self.username_input}.txt"
 
         cprint("Create your character:", "yellow", attrs=["bold", "underline"])
 

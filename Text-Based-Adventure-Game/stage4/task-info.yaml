@@ -4,3 +4,5 @@ files:
   visible: true
 - name: tests.py
   visible: true
+- name: game/saves/new_user01.txt
+  visible: true

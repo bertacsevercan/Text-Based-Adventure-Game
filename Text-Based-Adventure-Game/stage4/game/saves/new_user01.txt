@@ -1,0 +1,4 @@
+John, Human, Male
+Apple, Sword, Rope
+Easy 4
+2

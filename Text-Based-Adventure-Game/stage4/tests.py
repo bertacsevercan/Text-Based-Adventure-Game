@@ -32,6 +32,7 @@ class TextBasedAdventureGameTest(StageTest):
             TestCase(stdin=["1", "/b", self.check_go_back]),
             TestCase(stdin=["1", self.check_username, self.name, self.species, self.gender, self.snack, self.weapon,
                             self.tool, self.difficulty, (-1, self.check_level1)]),
+            TestCase(stdin=[self.check_save]),
             TestCase(stdin=["1", self.check_username, self.name, self.species, self.gender, self.snack, self.weapon,
                             self.tool, self.difficulty, "/i", self.check_inventory]),
             TestCase(stdin=["1", self.check_username, self.name, self.species, self.gender, self.snack, self.weapon,
@@ -83,8 +84,11 @@ class TextBasedAdventureGameTest(StageTest):
     def check_level1(self, output):
         choices = ["1", "2", "3"]
         random_choice = choice(choices)
-        if "level 2" in output.lower() or "game over" in output.lower():
+        if "level 2" in output.lower():
             return CheckResult.correct()
+
+        if "game over" in output.lower():
+            pass
 
         if "you died" in output.lower() and "level 1" not in output.lower():
             return CheckResult.wrong("Your program didn't start from the beginning of the level.")
@@ -97,6 +101,29 @@ class TextBasedAdventureGameTest(StageTest):
         else:
             self.picked_choice = random_choice
             return self.picked_choice
+
+    def check_save(self, output):
+        try:
+            with open(f"./game/saves/{self.username}.txt") as f:
+                content = f.readlines()
+                character = content[0].lower().strip().split(",")
+                inventory = content[1].lower().strip().split(",")
+                difficulty = content[2].lower().strip().split(" ")
+                level = content[3].strip()
+
+                if len(character) != 3 or self.name not in character or self.species not in character or self.gender not in character:
+                    return CheckResult.wrong("Save file doesn't contain the correct character traits.")
+                elif len(inventory) < 2 or self.weapon not in inventory or self.tool not in inventory:
+                    return CheckResult.wrong("Save file doesn't contain the correct inventory.")
+                elif len(difficulty) != 2 or self.difficulty not in difficulty:
+                    return CheckResult.wrong("Save file doesn't contain the correct difficulty and life count.")
+                elif level != "2":
+                    return CheckResult.wrong("Save file doesn't contain the correct level count.")
+                else:
+                    return CheckResult.correct()
+
+        except (TypeError, IndexError, FileNotFoundError):
+            return CheckResult.wrong("Save file doesn't exist with the given player name.")
 
     def check_inventory(self, output):
         inventory = [self.snack, self.weapon, self.tool]
