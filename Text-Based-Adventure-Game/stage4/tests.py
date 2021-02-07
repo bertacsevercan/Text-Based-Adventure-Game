@@ -86,9 +86,24 @@ class TextBasedAdventureGameTest(StageTest):
         random_choice = choice(choices)
         if "level 2" in output.lower():
             return CheckResult.correct()
-
-        if "game over" in output.lower():
-            pass
+        elif "game over" in output.lower():
+            return "1"
+        elif "starting a new game" in output.lower():
+            return self.username
+        elif "1- name" in output.lower():
+            return self.name
+        elif "2- species" in output.lower():
+            return self.species
+        elif "3- gender" in output.lower():
+            return self.gender
+        elif "1- favourite snack" in output.lower():
+            return self.snack
+        elif "2- a weapon for the journey" in output.lower():
+            return self.weapon
+        elif "3- a traversal tool" in output.lower():
+            return self.tool
+        elif "choose your difficulty" in output.lower():
+            return self.difficulty
 
         if "you died" in output.lower() and "level 1" not in output.lower():
             return CheckResult.wrong("Your program didn't start from the beginning of the level.")
@@ -106,8 +121,8 @@ class TextBasedAdventureGameTest(StageTest):
         try:
             with open(f"./game/saves/{self.username}.txt") as f:
                 content = f.readlines()
-                character = content[0].lower().strip().split(",")
-                inventory = content[1].lower().strip().split(",")
+                character = content[0].lower().strip().split(", ")
+                inventory = content[1].lower().strip().split(", ")
                 difficulty = content[2].lower().strip().split(" ")
                 level = content[3].strip()
 

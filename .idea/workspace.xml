@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="71c7dc97-5c21-47f5-810b-c5296769a534" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Text-Based-Adventure-Game/stage4/game/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/Text-Based-Adventure-Game/stage4/game/game.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Text-Based-Adventure-Game/stage4/game/saves/new_user01.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Text-Based-Adventure-Game/stage4/task-info.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/Text-Based-Adventure-Game/stage4/task-info.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Text-Based-Adventure-Game/stage4/tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/Text-Based-Adventure-Game/stage4/tests.py" afterDir="false" />
     </list>
@@ -23,12 +23,15 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1mpwBTMzUWYSzL7n9TsaNSqqcLF" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="last_opened_file_path" value="$USER_HOME$" />
@@ -176,5 +179,8 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
 </project>
