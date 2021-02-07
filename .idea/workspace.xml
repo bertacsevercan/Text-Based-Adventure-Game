@@ -2,10 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="71c7dc97-5c21-47f5-810b-c5296769a534" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/Text-Based-Adventure-Game/stage5/game/story/choices.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Text-Based-Adventure-Game/stage5/game/story/outcomes.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Text-Based-Adventure-Game/stage5/game/story/story.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Text-Based-Adventure-Game/stage4/game/saves/new_user01.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Text-Based-Adventure-Game/stage4/task-info.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/Text-Based-Adventure-Game/stage4/task-info.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Text-Based-Adventure-Game/stage4/tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/Text-Based-Adventure-Game/stage4/tests.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Text-Based-Adventure-Game/stage5/game/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/Text-Based-Adventure-Game/stage5/game/game.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,11 +35,12 @@
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$USER_HOME$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/Text-Based-Adventure-Game/stage5/game" />
     <property name="restartRequiresConfirmation" value="false" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/Text-Based-Adventure-Game/stage5/game" />
       <recent name="$PROJECT_DIR$/Text-Based-Adventure-Game/stage4/txt-based-adv-game" />
       <recent name="$PROJECT_DIR$" />
     </key>
