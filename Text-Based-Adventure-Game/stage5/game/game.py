@@ -319,12 +319,12 @@ class Menu:
 
     def load_game(self):
         try:
-            saves = list(map(lambda x: x.replace(".txt", ""), os.listdir('./saves/')))  # get rid of .txt
+            saves = list(map(lambda x: x.replace(".txt", ""), os.listdir(f'{file_path}/saves/')))  # get rid of .txt
             cprint("Type your username from the list:", "yellow")
             for save in saves:
                 cprint(save, "magenta", attrs=["bold"])
             path = input(colored("=> ", "green", attrs=["bold"]))
-            Game.save_file_path = f'./gameSaves/{path}.txt'
+            Game.save_file_path = f'{file_path}/saves/{path}.txt'
             with open(Game.save_file_path) as f:
                 cprint("Loading your progress...", "blue")  # s1 #s3
                 content = f.readlines()

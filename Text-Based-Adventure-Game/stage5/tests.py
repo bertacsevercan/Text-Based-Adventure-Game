@@ -43,6 +43,7 @@ class TextBasedAdventureGameTest(StageTest):
                             self.tool, self.difficulty, "/q", (2, self.check_quit)]),
             TestCase(stdin=["1", self.check_username, self.name, self.species, self.gender, self.snack, self.weapon,
                             self.tool, self.difficulty, "4", self.check_unknown]),
+            TestCase(stdin=["2", self.username, (-1, self.check_level2)]),
             TestCase(stdin="3"),
             TestCase(stdin="quIt")
         ]
@@ -53,7 +54,7 @@ class TextBasedAdventureGameTest(StageTest):
         return CheckResult.correct()
 
     def check_start_load(self, output):
-        if "starting a new game..." in output.lower() or "loading your progress..." in output.lower():
+        if "starting a new game..." in output.lower() or "no save data found" in output.lower() or "type your username" in output.lower():
             return CheckResult.correct()
         return CheckResult.wrong("Your program didn't output correct message.")
 
@@ -126,7 +127,8 @@ class TextBasedAdventureGameTest(StageTest):
                 difficulty = content[2].lower().strip().split(" ")
                 level = content[3].strip()
 
-                if len(character) != 3 or self.name not in character or self.species not in character or self.gender not in character:
+                if len(
+                        character) != 3 or self.name not in character or self.species not in character or self.gender not in character:
                     return CheckResult.wrong("Save file doesn't contain the correct character traits.")
                 elif len(inventory) < 2 or self.weapon not in inventory or self.tool not in inventory:
                     return CheckResult.wrong("Save file doesn't contain the correct inventory.")
@@ -139,6 +141,24 @@ class TextBasedAdventureGameTest(StageTest):
 
         except (TypeError, IndexError, FileNotFoundError):
             return CheckResult.wrong("Save file doesn't exist with the given player name.")
+
+    def check_level2(self, output):
+        choices = ["1", "2", "3"]
+        random_choice = choice(choices)
+        if "congratulations! you beat the game!" in output.lower() or "game over" in output.lower():
+            return CheckResult.correct()
+
+        if "you died" in output.lower() and "level 2" not in output.lower():
+            return CheckResult.wrong("Your program didn't start from the beginning of the level.")
+
+        if "what will you do? type the number of the option or type '/h' to show help." not in output.lower():
+            choices.pop(choices.index(self.picked_choice))
+            self.picked_choice = choice(choices)
+            return self.picked_choice
+
+        else:
+            self.picked_choice = random_choice
+            return self.picked_choice
 
     def check_inventory(self, output):
         inventory = [self.snack, self.weapon, self.tool]
