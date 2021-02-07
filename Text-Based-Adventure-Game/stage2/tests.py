@@ -37,7 +37,7 @@ class TextBasedAdventureGameTest(StageTest):
         return CheckResult.correct()
 
     def check_start_load(self, output):
-        if "starting a new game..." in output.lower() or "loading your progress..." in output.lower():
+        if "starting a new game..." in output.lower() or "no save data found" in output.lower():
             return CheckResult.correct()
         return CheckResult.wrong("Your program didn't output correct message.")
 

@@ -26,7 +26,7 @@ class NewGame:
 
     def create_new_game(self):
 
-        Game.save_file_path = f"./gameSaves/{self.username_input}.txt"
+        Game.save_file_path = f"./saves/{self.username_input}.txt"
 
         cprint("Create your character:", "yellow", attrs=["bold", "underline"])
 
@@ -97,7 +97,7 @@ class Menu:
             break  # go back to menu
 
     def load_game(self):
-        cprint("Loading your progress...", "blue")
+        cprint("No save data found!", "blue")
 
 
 game_menu = Menu(None)

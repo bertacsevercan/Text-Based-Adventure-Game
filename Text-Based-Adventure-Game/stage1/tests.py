@@ -20,22 +20,22 @@ class TextBasedAdventureGameTest(StageTest):
         ]
 
     def check_welcome(self, output):
-        if "Welcome to" not in output and "***" not in output:
+        if "welcome to" not in output.lower() and "***" not in output:
             return CheckResult.wrong("You didn't output a correct welcome message!")
         return CheckResult.correct()
 
     def check_start_load(self, output):
-        if "Starting a new game..." in output or "Loading your progress..." in output:
+        if "starting a new game" in output.lower() or "no save data found" in output.lower():
             return CheckResult.correct()
         return CheckResult.wrong("Your program didn't output correct message.")
 
     def check_unknown(self, output):
-        if "Unknown input! Please enter a valid one." in output:
+        if "unknown input! please enter a valid one." in output.lower():
             return "3"
         return CheckResult.wrong("Your program couldn't process unknown input.")
 
     def check(self, reply: str, attach: Any) -> CheckResult:
-        if "Goodbye!" in reply:
+        if "goodbye!" in reply.lower():
             return CheckResult.correct()
 
         return CheckResult.wrong("Your program didn't print a correct goodbye message.")

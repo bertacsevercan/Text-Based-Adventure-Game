@@ -25,7 +25,7 @@ class Menu:
         cprint("Starting a new game...", "blue")
 
     def load_game(self):
-        cprint("Loading your progress...", "blue")
+        cprint("No save data found!", "blue")
 
 
 game_menu = Menu(None)

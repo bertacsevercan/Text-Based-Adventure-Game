@@ -273,7 +273,7 @@ class Menu:
             break  # go back to menu
 
     def load_game(self):
-        cprint("Loading your progress...", "blue")
+        cprint("No save data found!", "blue")
 
 
 game_menu = Menu(None)
