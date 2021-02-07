@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="71c7dc97-5c21-47f5-810b-c5296769a534" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/Text-Based-Adventure-Game/stage4/tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/Text-Based-Adventure-Game/stage4/tests.py" afterDir="false" />
-    </list>
+    <list default="true" id="71c7dc97-5c21-47f5-810b-c5296769a534" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -46,8 +44,8 @@
       <recent name="$PROJECT_DIR$/Text-Based-Adventure-Game/stage3" />
     </key>
   </component>
-  <component name="RunManager" selected="Run Study Tests.Text-Based-Adventure-Game/stage4">
-    <configuration name="game (3)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Run Study Tests.Text-Based-Adventure-Game/stage1">
+    <configuration name="Text-Based-Adventure-Game/stage1" type="ccruntests" factoryName="Run Study Tests" temporary="true">
       <module name="Text-Based-Adventure-Game" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -55,20 +53,21 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Text-Based-Adventure-Game/stage3/txt-based-adv-game" />
-      <option name="IS_MODULE_SDK" value="true" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Text-Based-Adventure-Game/stage3/txt-based-adv-game/game.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Text-Based-Adventure-Game/stage1/tests.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
       <option name="REDIRECT_INPUT" value="false" />
       <option name="INPUT_FILE" value="" />
+      <option name="studyTest" value="$PROJECT_DIR$/Text-Based-Adventure-Game/stage1/tests.py" />
       <method v="2" />
     </configuration>
-    <configuration name="game" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="Text-Based-Adventure-Game/stage2" type="ccruntests" factoryName="Run Study Tests" temporary="true">
       <module name="Text-Based-Adventure-Game" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -76,17 +75,18 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Text-Based-Adventure-Game/stage5/game" />
-      <option name="IS_MODULE_SDK" value="true" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Text-Based-Adventure-Game/stage5/game/game.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Text-Based-Adventure-Game/stage2/tests.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
       <option name="REDIRECT_INPUT" value="false" />
       <option name="INPUT_FILE" value="" />
+      <option name="studyTest" value="$PROJECT_DIR$/Text-Based-Adventure-Game/stage2/tests.py" />
       <method v="2" />
     </configuration>
     <configuration name="Text-Based-Adventure-Game/stage3" type="ccruntests" factoryName="Run Study Tests" temporary="true">
@@ -157,11 +157,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Run Study Tests.Text-Based-Adventure-Game/stage1" />
+        <item itemvalue="Run Study Tests.Text-Based-Adventure-Game/stage2" />
+        <item itemvalue="Run Study Tests.Text-Based-Adventure-Game/stage3" />
         <item itemvalue="Run Study Tests.Text-Based-Adventure-Game/stage4" />
         <item itemvalue="Run Study Tests.Text-Based-Adventure-Game/stage5" />
-        <item itemvalue="Python.game" />
-        <item itemvalue="Run Study Tests.Text-Based-Adventure-Game/stage3" />
-        <item itemvalue="Python.game (3)" />
       </list>
     </recent_temporary>
   </component>

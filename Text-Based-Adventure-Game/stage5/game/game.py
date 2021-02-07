@@ -133,6 +133,7 @@ class Helper:
     @staticmethod
     def game_won():
         print("Congratulations! You beat the game!")
+        cprint("Goodbye!", "blue")
         exit()
 
     @staticmethod
