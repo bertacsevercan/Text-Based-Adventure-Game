@@ -6,7 +6,7 @@ from random import choice
 
 
 class TextBasedAdventureGameTest(StageTest):
-    username = "new_user01"
+    username = "new_user"
     name = "john"
     species = "human"
     gender = "male"
@@ -26,7 +26,7 @@ class TextBasedAdventureGameTest(StageTest):
             TestCase(stdin=["2", self.check_start_load]),
             TestCase(stdin=["load", self.check_start_load]),
             TestCase(stdin=["lOAd", self.check_start_load]),
-            TestCase(stdin=["4", self.check_unknown]),
+            TestCase(stdin=["5", self.check_unknown]),
             TestCase(stdin=["1", self.check_username, self.name, self.species, self.gender, self.snack, self.weapon,
                             self.tool, self.difficulty, self.check_game_state, "3"]),
             TestCase(stdin=["1", "/b", self.check_go_back]),
@@ -53,12 +53,12 @@ class TextBasedAdventureGameTest(StageTest):
         return CheckResult.correct()
 
     def check_start_load(self, output):
-        if "starting a new game..." in output.lower() or "no save data found" in output.lower():
+        if "starting a new game" in output.lower() or "no save data found" in output.lower():
             return CheckResult.correct()
         return CheckResult.wrong("Your program didn't output correct message.")
 
     def check_unknown(self, output):
-        if "unknown input! please enter a valid one." in output.lower():
+        if "unknown input! please enter a valid one" in output.lower():
             return CheckResult.correct()
         return CheckResult.wrong("Your program couldn't process unknown input.")
 
@@ -70,14 +70,14 @@ class TextBasedAdventureGameTest(StageTest):
     def check_game_state(self, output):
         states = [self.name, self.species, self.gender, self.snack, self.weapon, self.tool, self.difficulty]
         have_state = all([state in output.lower() for state in states])
-        if "good luck on your journey:" not in output.lower():
+        if "good luck on your journey" not in output.lower():
             return CheckResult.wrong("You didn't output the correct message.")
         elif not have_state:
             return CheckResult.wrong("You didn't output the correct game state.")
         return CheckResult.correct()
 
     def check_go_back(self, output):
-        if "going back to menu..." not in output.lower():
+        if "going back to menu" not in output.lower():
             CheckResult.wrong("You didn't output the correct message when going back to menu.")
         return "3"
 
@@ -152,14 +152,14 @@ class TextBasedAdventureGameTest(StageTest):
     def check_char(self, output):
         char = [self.name, self.species, self.gender, self.lives]
         in_char = all([ch in output.lower() for ch in char])
-        if "character" not in output.lower() or not in_char or "life count" not in output.lower():
+        if "character" not in output.lower() or not in_char or "lives remaining" not in output.lower():
             return CheckResult.wrong("Your program didn't output correct character traits.")
         else:
             return CheckResult.correct()
 
     def check_help(self, output):
         message = "type the number of the option you want to choose.\n" + "commands you can use:\n/i => shows inventory.\n" \
-                  + "/q => exits the game.\n" + "/c => shows character traits.\n" + "/h => shows help."
+                  + "/q => exits the game.\n" + "/c => shows the character traits.\n" + "/h => shows help."
         if message not in output.lower():
             return CheckResult.wrong("Your program didn't output the correct help message.")
         else:

@@ -14,7 +14,7 @@ class TextBasedAdventureGameTest(StageTest):
             TestCase(stdin=["2", self.check_start_load]),
             TestCase(stdin=["load", self.check_start_load]),
             TestCase(stdin=["lOAd", self.check_start_load]),
-            TestCase(stdin=["4", self.check_unknown]),
+            TestCase(stdin=["5", self.check_unknown]),
             TestCase(stdin="3"),
             TestCase(stdin="quIt")
         ]
@@ -30,7 +30,7 @@ class TextBasedAdventureGameTest(StageTest):
         return CheckResult.wrong("Your program didn't output correct message.")
 
     def check_unknown(self, output):
-        if "unknown input! please enter a valid one." in output.lower():
+        if "unknown input! please enter a valid one" in output.lower():
             return "3"
         return CheckResult.wrong("Your program couldn't process unknown input.")
 

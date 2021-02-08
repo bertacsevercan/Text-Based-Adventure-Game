@@ -99,7 +99,7 @@ class Helper:
     def decrease_lives():
         Game.lives -= 1
         Game.isAlive = False
-        print(colored("You died! Life count: ", "red", attrs=["bold"]), Game.lives)
+        print(colored("You died! Lives remaining: ", "red", attrs=["bold"]), Game.lives)
 
     @staticmethod
     def show_inventory():
@@ -120,14 +120,14 @@ class Helper:
     def show_char():
         char = ", ".join(list(Game.char_att_dict.values()))
         lives = Game.lives
-        cprint(f"Your character: {char}.\nLife count: {lives}", "cyan")
+        cprint(f"Your character: {char}.\nLives remaining: {lives}", "cyan")
 
     @staticmethod
     def show_help():
         cprint("Type the number of the option you want to choose.\n" +
                "Commands you can use:\n/i => Shows inventory.\n" +
                "/q => Exits the game.\n" +
-               "/c => Shows character traits.\n" +
+               "/c => Shows the character traits.\n" +
                "/h => Shows help.", "blue")
 
     @staticmethod
