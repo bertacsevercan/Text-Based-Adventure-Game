@@ -38,14 +38,16 @@ while True:
 
     if game_menu.user_input == "1" or game_menu.user_input.lower() == "start":
         game_menu.new_game()
+        break
 
     elif game_menu.user_input == "2" or game_menu.user_input.lower() == "load":
         game_menu.load_game()
-
+        break
     elif game_menu.user_input == "3" or game_menu.user_input.lower() == "quit":
         cprint("Goodbye!", "blue")
         break
 
     else:
         warning_unknown_input()
+
 

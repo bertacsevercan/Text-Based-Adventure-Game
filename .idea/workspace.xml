@@ -4,7 +4,6 @@
     <list default="true" id="71c7dc97-5c21-47f5-810b-c5296769a534" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Text-Based-Adventure-Game/stage1/game/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/Text-Based-Adventure-Game/stage1/game/game.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Text-Based-Adventure-Game/stage1/tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/Text-Based-Adventure-Game/stage1/tests.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,7 +47,7 @@
       <recent name="$PROJECT_DIR$/Text-Based-Adventure-Game/stage3" />
     </key>
   </component>
-  <component name="RunManager" selected="Run Study Tests.Text-Based-Adventure-Game/stage1">
+  <component name="RunManager" selected="Python.game">
     <configuration name="game" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Text-Based-Adventure-Game" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -160,8 +159,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Run Study Tests.Text-Based-Adventure-Game/stage1" />
         <item itemvalue="Python.game" />
+        <item itemvalue="Run Study Tests.Text-Based-Adventure-Game/stage1" />
         <item itemvalue="Run Study Tests.Text-Based-Adventure-Game/stage5" />
         <item itemvalue="Run Study Tests.Text-Based-Adventure-Game/stage4" />
         <item itemvalue="Run Study Tests.Text-Based-Adventure-Game/stage3" />

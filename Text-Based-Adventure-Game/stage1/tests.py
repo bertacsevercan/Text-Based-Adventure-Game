@@ -1,4 +1,4 @@
-from hstest import StageTest, TestCase, CheckResult, dynamic_test, TestedProgram
+from hstest import StageTest, CheckResult, dynamic_test, TestedProgram
 
 
 class TextBasedAdventureGameTest(StageTest):
@@ -21,7 +21,18 @@ class TextBasedAdventureGameTest(StageTest):
         return CheckResult.wrong("Your program didn't ask for input!")
 
     @dynamic_test
-    def test3(self):
+    def test4(self):
+        main = TestedProgram()
+        main.start()
+
+        if main.is_waiting_input():
+            output = main.execute("start")
+            feedback = "Your program couldn't process the input 'start' to start a new game! Make sure to output 'starting a new game'."
+            return self.check_start_new(output, feedback)
+        return CheckResult.wrong("Your program didn't ask for input!")
+
+    @dynamic_test
+    def test5(self):
         main = TestedProgram()
         main.start()
 
@@ -32,7 +43,7 @@ class TextBasedAdventureGameTest(StageTest):
         return CheckResult.wrong("Your program didn't ask for input!")
 
     @dynamic_test
-    def test4(self):
+    def test6(self):
         main = TestedProgram()
         main.start()
 
@@ -43,7 +54,18 @@ class TextBasedAdventureGameTest(StageTest):
         return CheckResult.wrong("Your program didn't ask for input!")
 
     @dynamic_test
-    def test5(self):
+    def test7(self):
+        main = TestedProgram()
+        main.start()
+
+        if main.is_waiting_input():
+            output = main.execute("load")
+            feedback = "Your program couldn't process input 'load' to load a game! Make sure to say 'no save data found'."
+            return self.check_start_load(output, feedback)
+        return CheckResult.wrong("Your program didn't ask for input!")
+
+    @dynamic_test
+    def test8(self):
         main = TestedProgram()
         main.start()
 
@@ -54,17 +76,19 @@ class TextBasedAdventureGameTest(StageTest):
         return CheckResult.wrong("Your program didn't ask for input!")
 
     @dynamic_test
-    def test6(self):
+    def test9(self):
         main = TestedProgram()
         main.start()
 
         if main.is_waiting_input():
             output = main.execute("5")
-            return self.check_unknown(output)
+            if main.is_waiting_input():
+                return self.check_unknown(output)
+            return CheckResult.wrong("Your program didn't ask for another input after an unknown input!")
         return CheckResult.wrong("Your program didn't ask for input!")
 
     @dynamic_test
-    def test7(self):
+    def test10(self):
         main = TestedProgram()
         main.start()
 
@@ -77,7 +101,7 @@ class TextBasedAdventureGameTest(StageTest):
         return CheckResult.wrong("Your program didn't ask for input!")
 
     @dynamic_test
-    def test8(self):
+    def test11(self):
         main = TestedProgram()
         main.start()
 
@@ -86,12 +110,12 @@ class TextBasedAdventureGameTest(StageTest):
             if main.is_finished():
                 feedback = "Your program didn't output 'goodbye' before you exit with 'quIt' as input! Your program must be case insensitive!"
                 return self.check_quit(output, feedback)
-            return CheckResult.wrong("Your program should end with input 'quIt'! Your program must be case insensitive!")
+            return CheckResult.wrong(
+                "Your program should end with input 'quIt'! Your program must be case insensitive!")
         return CheckResult.wrong("Your program didn't ask for input!")
 
-
     @dynamic_test
-    def test9(self):
+    def test12(self):
         main = TestedProgram()
         main.start()
 
@@ -102,8 +126,6 @@ class TextBasedAdventureGameTest(StageTest):
                 return self.check_quit(output, feedback)
             return CheckResult.wrong("Your program should end with input 'quit'!")
         return CheckResult.wrong("Your program didn't ask for input!")
-
-
 
     # def generate(self) -> [TestCase]:
     #     return [
