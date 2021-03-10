@@ -102,8 +102,6 @@ class Menu:
 
 game_menu = Menu(None)
 
-
-
 while True:
 
     Menu.welcome()

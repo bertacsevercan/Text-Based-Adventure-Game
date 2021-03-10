@@ -16,23 +16,23 @@ class TextBasedAdventureGameTest(StageTest):
 
         if main.is_waiting_input():
             output = main.execute("1")
-            feedback = "Your program couldn't process input '1' to start a new game! Make sure to output 'starting a new game'."
+            feedback = "Your program couldn't process input '1' to start a new game! Make sure to output 'Starting a new game...'."
             return self.check_start_new(output, feedback)
         return CheckResult.wrong("Your program didn't ask for input!")
 
     @dynamic_test
-    def test4(self):
+    def test3(self):
         main = TestedProgram()
         main.start()
 
         if main.is_waiting_input():
             output = main.execute("start")
-            feedback = "Your program couldn't process the input 'start' to start a new game! Make sure to output 'starting a new game'."
+            feedback = "Your program couldn't process the input 'start' to start a new game! Make sure to output 'Starting a new game...'."
             return self.check_start_new(output, feedback)
         return CheckResult.wrong("Your program didn't ask for input!")
 
     @dynamic_test
-    def test5(self):
+    def test4(self):
         main = TestedProgram()
         main.start()
 
@@ -43,29 +43,29 @@ class TextBasedAdventureGameTest(StageTest):
         return CheckResult.wrong("Your program didn't ask for input!")
 
     @dynamic_test
-    def test6(self):
+    def test5(self):
         main = TestedProgram()
         main.start()
 
         if main.is_waiting_input():
             output = main.execute("2")
-            feedback = "Your program couldn't process input '2' to load a game! Make sure to say 'no save data found'."
+            feedback = "Your program couldn't process input '2' to load a game! Make sure to say 'No save data found!'."
             return self.check_start_load(output, feedback)
         return CheckResult.wrong("Your program didn't ask for input!")
 
     @dynamic_test
-    def test7(self):
+    def test6(self):
         main = TestedProgram()
         main.start()
 
         if main.is_waiting_input():
             output = main.execute("load")
-            feedback = "Your program couldn't process input 'load' to load a game! Make sure to say 'no save data found'."
+            feedback = "Your program couldn't process input 'load' to load a game! Make sure to say 'No save data found!'."
             return self.check_start_load(output, feedback)
         return CheckResult.wrong("Your program didn't ask for input!")
 
     @dynamic_test
-    def test8(self):
+    def test7(self):
         main = TestedProgram()
         main.start()
 
@@ -76,7 +76,7 @@ class TextBasedAdventureGameTest(StageTest):
         return CheckResult.wrong("Your program didn't ask for input!")
 
     @dynamic_test
-    def test9(self):
+    def test8(self):
         main = TestedProgram()
         main.start()
 
@@ -88,16 +88,30 @@ class TextBasedAdventureGameTest(StageTest):
         return CheckResult.wrong("Your program didn't ask for input!")
 
     @dynamic_test
-    def test10(self):
+    def test9(self):
         main = TestedProgram()
         main.start()
 
         if main.is_waiting_input():
             output = main.execute("3")
             if main.is_finished():
-                feedback = "Your program didn't output 'goodbye' before you exit with '3' as input!"
+                feedback = "Your program didn't output 'Goodbye!' before you exit with '3' as input!"
                 return self.check_quit(output, feedback)
             return CheckResult.wrong("Your program should end with input '3'!")
+        return CheckResult.wrong("Your program didn't ask for input!")
+
+    @dynamic_test
+    def test10(self):
+        main = TestedProgram()
+        main.start()
+
+        if main.is_waiting_input():
+            output = main.execute("quIt")
+            if main.is_finished():
+                feedback = "Your program didn't output 'Goodbye!' before you exit with 'quIt' as input! Your program must be case insensitive!"
+                return self.check_quit(output, feedback)
+            return CheckResult.wrong(
+                "Your program should end with input 'quIt'! Your program must be case insensitive!")
         return CheckResult.wrong("Your program didn't ask for input!")
 
     @dynamic_test
@@ -106,23 +120,9 @@ class TextBasedAdventureGameTest(StageTest):
         main.start()
 
         if main.is_waiting_input():
-            output = main.execute("quIt")
-            if main.is_finished():
-                feedback = "Your program didn't output 'goodbye' before you exit with 'quIt' as input! Your program must be case insensitive!"
-                return self.check_quit(output, feedback)
-            return CheckResult.wrong(
-                "Your program should end with input 'quIt'! Your program must be case insensitive!")
-        return CheckResult.wrong("Your program didn't ask for input!")
-
-    @dynamic_test
-    def test12(self):
-        main = TestedProgram()
-        main.start()
-
-        if main.is_waiting_input():
             output = main.execute("quit")
             if main.is_finished():
-                feedback = "Your program didn't output 'goodbye' before you exit with 'quit' as input!"
+                feedback = "Your program didn't output 'Goodbye!' before you exit with 'quit' as input!"
                 return self.check_quit(output, feedback)
             return CheckResult.wrong("Your program should end with input 'quit'!")
         return CheckResult.wrong("Your program didn't ask for input!")
@@ -147,10 +147,10 @@ class TextBasedAdventureGameTest(StageTest):
     #     output2 = main.execute("3")
     #     return self.check_quit_numbered_input(output2)
 
-    def check_welcome(self, output):
+    def check_welcome(self, output, feedback=""):
         if "welcome to" in output.lower() and "***" in output:
             return CheckResult.correct()
-        return CheckResult.wrong("You welcome message doesn't include the following: 'welcome to', '***' !")
+        return CheckResult.wrong(feedback or "Your welcome message doesn't include the following: '***Welcome to <game-title>***'!")
 
     def check_start_new(self, output, feedback):
         if "starting a new game" in output.lower():
@@ -176,7 +176,7 @@ class TextBasedAdventureGameTest(StageTest):
         if "unknown input! please enter a valid one" in output.lower():
             return CheckResult.correct()  # "3"
         return CheckResult.wrong(
-            "Your program couldn't process unknown input. Make sure to say 'unknown input! please enter a valid one'. ")
+            "Your program couldn't process unknown input. Make sure to say 'Unknown input! please enter a valid one'. ")
 
     def check_quit(self, output, feedback):
         if "goodbye" in output.lower():
