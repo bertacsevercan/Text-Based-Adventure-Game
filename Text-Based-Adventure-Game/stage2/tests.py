@@ -10,7 +10,6 @@ class TextBasedAdventureGameTest(StageTest):
     weapon = "sword"
     tool = "rope"
     difficulty = "easy"
-    lives = 5
 
     @dynamic_test
     def test1(self):
@@ -163,6 +162,77 @@ class TextBasedAdventureGameTest(StageTest):
 
             return self.check_welcome(output2, feedback="You should output the same welcome message with the menu!")
 
+        return CheckResult.wrong("Your program didn't ask for input!")
+
+    @dynamic_test
+    def test13(self):
+        main = TestedProgram()
+        main.start()
+        if main.is_waiting_input():
+            main.execute("1")
+            if main.is_waiting_input():
+                output = main.execute(self.username).lower()
+                if "create your character" not in output:
+                    return CheckResult.wrong("You should print 'Create your character:'!")
+                elif "name" not in output and not main.is_waiting_input():
+                    return CheckResult.wrong("You should ask the name of the character!")
+                output2 = main.execute(self.name).lower().split()
+                if "species" not in output2 and not main.is_waiting_input():
+                    return CheckResult.wrong("You should ask the species of the character!")
+                output3 = main.execute(self.species).lower().split()
+                if "gender" not in output3 and not main.is_waiting_input():
+                    return CheckResult.wrong("You should ask the gender of the character!")
+                output4 = main.execute(self.gender).lower()
+                if "pack your bag" not in output4:
+                    return CheckResult.wrong("You should print 'Pack your bag for the journey:'!")
+                elif "snack" not in output4 and not main.is_waiting_input():
+                    return CheckResult.wrong("You should ask for the favourite snack for the inventory!")
+                output5 = main.execute(self.snack).lower().split()
+                if "weapon" not in output5 and not main.is_waiting_input():
+                    return CheckResult.wrong("You should ask for a weapon for the inventory!")
+                output6 = main.execute(self.weapon).lower().split()
+                if "tool" not in output6 and not main.is_waiting_input():
+                    return CheckResult.wrong("You should ask for a traversal tool for the inventory!")
+                output7 = main.execute(self.tool).lower()
+                difficulties = ["easy", "hard", "medium"]
+                have_difficulty = all([difficulty in output7 for difficulty in difficulties])
+                if "choose your difficulty" not in output7:
+                    return CheckResult.wrong("You should print 'Choose your difficulty:'!")
+                elif not have_difficulty and not main.is_waiting_input():
+                    return CheckResult.wrong("You should print all the difficulty options!")
+                output8 = main.execute("insane").lower().split()
+                if "unknown input! please enter a valid one" not in output8 and not main.is_waiting_input():
+                    return CheckResult.wrong(
+                        "Your program should handle unknown input like before here! Make sure to say 'Unknown input! Please enter a valid one'. ")
+                output9 = main.execute(self.difficulty).lower()
+                if "unknown input! please enter a valid one" in output9 and main.is_waiting_input():
+                    return CheckResult.wrong(
+                        "The user should be able to type the difficulty or enter the number of the difficulty!")
+                elif "good luck on your journey" not in output9:
+                    return CheckResult.wrong("You should print 'Good luck on your journey!'")
+                elif "your character" not in output9:
+                    return CheckResult.wrong("You should print 'Your character:' before the character traits.")
+                elif self.name not in output9:
+                    return CheckResult.wrong("You should print the name of the character.")
+                elif self.species not in output9:
+                    return CheckResult.wrong("You should print the  gender of the character.")
+                elif self.gender not in output9:
+                    return CheckResult.wrong("You should print the gender of the character.")
+                elif "your inventory" not in output9:
+                    return CheckResult.wrong("You should print 'Your inventory:' before the inventory items.")
+                elif self.snack not in output9:
+                    return CheckResult.wrong("You should print the snack from the inventory.")
+                elif self.weapon not in output9:
+                    return CheckResult.wrong("You should print the weapon from the inventory.")
+                elif self.tool not in output9:
+                    return CheckResult.wrong("You should print the tool from the inventory.")
+                elif "difficulty" not in output9:
+                    return CheckResult.wrong("You should print 'Difficulty:' before the difficulty.")
+                elif self.difficulty not in output9:
+                    return CheckResult.wrong("You should print the difficulty.")
+                return CheckResult.correct()
+
+            return CheckResult.wrong("Your program didn't ask for the user name!")
         return CheckResult.wrong("Your program didn't ask for input!")
 
     def check_welcome(self, output, feedback=""):

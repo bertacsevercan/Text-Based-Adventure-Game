@@ -3,9 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="71c7dc97-5c21-47f5-810b-c5296769a534" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Text-Based-Adventure-Game/stage1/game/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/Text-Based-Adventure-Game/stage1/game/game.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Text-Based-Adventure-Game/stage1/tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/Text-Based-Adventure-Game/stage1/tests.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Text-Based-Adventure-Game/stage2/game/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/Text-Based-Adventure-Game/stage2/game/game.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Text-Based-Adventure-Game/stage2/tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/Text-Based-Adventure-Game/stage2/tests.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
